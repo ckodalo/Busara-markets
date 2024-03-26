@@ -1,19 +1,36 @@
 package com.predictions.predictions.models;
 
-public class Security {
+import jakarta.persistence.*;
 
+@Entity
+public class Security {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private double price;
     private boolean isOpen;
 
-    public Security (String name, double price) {
+    @ManyToOne
+    @JoinColumn(name = "market_id")
+    private Market market;
 
+    public Security (String name, double price, Long id) {
+
+        this.id = id;
         this.name = name;
         this.price = price;
         this.isOpen = true;
     }
 
     // Getters and setters
+
+    public  Long getId() {return id;}
+
+    public void setId(Long id) {
+
+        this.id = id;
+    }
     public String getName() {
         return name;
     }

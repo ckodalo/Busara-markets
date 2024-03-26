@@ -1,23 +1,38 @@
 package com.predictions.predictions.models;
 
+import jakarta.persistence.*;
+
 import java.util.List;
 import java.util.ArrayList;
 
+@Entity
 public class Market {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String title;
     private String description;
+    @OneToMany(mappedBy = "market", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Security> securities;
 
-    public Market (String title, String description) {
+    public Market (String title, String description, Long id) {
 
+        this.id = id;
         this.title = title;
         this.description = description;
         this.securities = new ArrayList<>();
 
     }
 
-    // Getters and setters
+    // Getters and
+
+    public  Long getId() {return id;}
+
+    public void setId(Long id) {
+
+        this.id = id;
+    }
     public String getTitle() {
         return title;
     }

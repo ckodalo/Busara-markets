@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/markets")
 public class MarketController {
 
-    private MarketService marketService;
+    private final MarketService marketService;
 
     public MarketController(MarketService marketService) {
         this.marketService = marketService;
