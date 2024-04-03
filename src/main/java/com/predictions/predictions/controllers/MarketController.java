@@ -31,7 +31,7 @@ public class MarketController {
         }
 
 
-        model.addAttribute(markets);
+        model.addAttribute("markets", markets);
         return "markets";
     }
 
