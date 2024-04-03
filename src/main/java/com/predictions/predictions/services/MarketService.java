@@ -5,6 +5,8 @@ import com.predictions.predictions.models.Market;
 import com.predictions.predictions.models.Security;
 import com.predictions.predictions.repositories.MarketRepository;
 
+import java.util.List;
+
 @Service
 public class MarketService {
 
@@ -15,6 +17,7 @@ public class MarketService {
         this.marketRepository = marketRepository;
     }
 
+    public List<Market> getMarkets () {return marketRepository.findAll();}
     public Market getMarketById(Long marketId) {
         return marketRepository.findById(marketId).orElse(null);
     }
