@@ -25,6 +25,8 @@ public class Market {
 
     }
 
+    public Market () {}
+
     // Getters and
 
     public  Long getId() {return id;}
