@@ -33,8 +33,6 @@
         </tr>
         </thead>
         <tbody>
-        <!-- Loop through markets and display each
-         one -->
         <tr th:each="market : ${markets}">
             <td th:text="${market.title}">Title</td>
             <td th:text="${market.description}">Description</td>

@@ -23,6 +23,8 @@ public class Security {
         this.isOpen = true;
     }
 
+    public Security () {}
+
     // Getters and setters
 
     public  Long getId() {return id;}
