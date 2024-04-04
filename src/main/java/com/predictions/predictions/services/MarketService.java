@@ -36,4 +36,14 @@ public class MarketService {
         return market;
     }
 
+    public void deleteMarket(Market market) {
+
+      marketRepository.delete(market);
+    }
+
+    public void deleteMarketById(Long marketId) {
+
+        marketRepository.deleteById(marketId);
+    }
+
 }

@@ -50,4 +50,10 @@ public class MarketController {
     public Market addSecurityToMarket(@PathVariable Long marketId, @RequestBody Security security) {
         return marketService.addSecurityToMarket(marketId, security);
     }
+
+    @PostMapping("{marketId}")
+    public String deleteMarketById(@PathVariable Long marketId) {
+        marketService.deleteMarketById(marketId);
+        return "redirect:/markets";
+    }
 }
