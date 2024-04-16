@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--    <meta name="_csrf" th:content="${_csrf.token}" />-->
+
+    <title>Not Laravel</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" th:href="@{/css/styles.build.tailwind.css}">
+    <!-- Scripts -->
+    <!-- Include your JavaScript files here -->
+</head>
+<body class="font-sans antialiased">
+<div class="min-h-screen bg-gray-100">
+<!--    <div th:replace="fragments/navigation :: navigation"></div>-->
+
+    <!-- Page Heading -->
+    <header th:if="${header}" class="bg-white shadow">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8" th:utext="${header}"></div>
+    </header>
+
+    <!-- Page Content -->
+    <main>
+        <div th:replace="~{${content}}"></div>
+    </main>
+</div>
+</body>
+</html>
