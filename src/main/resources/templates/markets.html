@@ -13,30 +13,6 @@
 
 <div class="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
     <h1 class="font-semibold text-xl text-gray-800 leading-tight">Markets</h1>
-    <form th:action="@{/markets}" method="post">
-        <div>
-            <label for="title" class="block font-medium text-sm text-gray-700">Title:</label>
-            <input type="text" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm'" id="title" name="title" required>
-        </div>
-        <div>
-            <label for="description" class="block font-medium text-sm text-gray-700">Description:</label>
-            <textarea  class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" id="description" name="description" rows="3" required></textarea>
-        </div>
-        <div>
-            <label class="block font-medium text-sm text-gray-700">Market Type:</label>
-            <div>
-                <label class="inline-flex items-center">
-                    <input type="radio" class="form-radio" name="market_type" value="yes_no">
-                    <span class="ml-2">Yes/No</span>
-                </label>
-                <label class="inline-flex items-center ml-6">
-                    <input type="radio" class="form-radio" name="market_type" value="multiple_choice">
-                    <span class="ml-2">Multiple Choice</span>
-                </label>
-            </div>
-        </div>
-        <button type="submit" class="mt-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Add Market</button>
-    </form>
 
     <div class="mt-6 bg-white shadow-sm rounded-lg divide-y">
         <table class="w-full divide-y divide-gray-200">
@@ -44,7 +20,7 @@
             <tr>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prediction</th>
             </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
@@ -57,9 +33,9 @@
                     <div class="text-sm text-gray-900" th:text="${market.description}">Description</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    <form th:action="@{'/markets/' + ${market.id}}" method="post" style="display: inline;">
-                        <input type="hidden" name="_method" value="delete">
-                        <button type="submit" class="mt-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Delete</button>
+                    <form th:action="@{'/make_prediction/' + ${market.id}}" method="post" style="display: inline;">
+                        <button type="submit" name="prediction" value="yes" class="px-4 py-2 bg-green-500 text-white font-semibold rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600">Yes</button>
+                        <button type="submit" name="prediction" value="no" class="px-4 py-2 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600">No</button>
                     </form>
                 </td>
             </tr>
@@ -68,6 +44,7 @@
     </div>
 
 </div>
+
 <!--</body>-->
 <!--</html>-->
 
