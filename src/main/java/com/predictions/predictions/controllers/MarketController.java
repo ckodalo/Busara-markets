@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/markets")
+//@RequestMapping("/markets")
 public class MarketController {
 
     private final MarketService marketService;
@@ -18,28 +18,45 @@ public class MarketController {
         this.marketService = marketService;
     }
 
-    @GetMapping()
+    @GetMapping("/markets")
     public String getMarkets(Model model) {
 
-        List<Market> markets = marketService.getMarkets();
+        List<Market> marketsList = marketService.getMarkets();
 
         // Iterate through the list of markets and print each market's details
-        for (Market market : markets) {
+        for (Market market : marketsList) {
             System.out.println("Market ID: " + market.getId());
             System.out.println("Market Title: " + market.getTitle());
             System.out.println("Market Description: " + market.getDescription());
         }
 
-
-        model.addAttribute("markets", markets);
-        return "markets";
+        model.addAttribute("content", "markets");
+        model.addAttribute("marketsList", marketsList);
+        return "layouts/app-layout";
     }
 
-    @GetMapping("/{marketId}")
+    @GetMapping("markets/{marketId}")
     public Market getMarket(@PathVariable Long marketId) {
         return marketService.getMarketById(marketId);
     }
 
+    @GetMapping("/add_market")
+    public String addMarkets(Model model) {
+
+        List<Market> marketsList = marketService.getMarkets();
+
+        // Iterate through the list of markets and print each market's details
+        for (Market market : marketsList) {
+            System.out.println("Market ID: " + market.getId());
+            System.out.println("Market Title: " + market.getTitle());
+            System.out.println("Market Description: " + market.getDescription());
+        }
+
+        model.addAttribute("content", "add-markets");
+        model.addAttribute("marketsList", marketsList);
+
+        return "layouts/app-layout";
+    }
     @PostMapping
     public String createMarket(@ModelAttribute Market market) {
         marketService.createMarket(market);
@@ -56,4 +73,10 @@ public class MarketController {
         marketService.deleteMarketById(marketId);
         return "redirect:/markets";
     }
+
+//    @PostMapping("marketId")
+//    public String makePrediction(@PathVariable Long markedId) {
+//        marketService.makePrediction(marketId);
+//        return "redirect:/markets";
+//    }
 }
