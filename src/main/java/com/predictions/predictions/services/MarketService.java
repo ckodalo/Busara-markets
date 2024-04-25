@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import com.predictions.predictions.models.Market;
 import com.predictions.predictions.models.Security;
 import com.predictions.predictions.repositories.MarketRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class MarketService {
     }
 
     public Market createMarket(Market market) {
-        // Additional validation logic can be added here
+
         return marketRepository.save(market);
     }
 
@@ -44,6 +45,11 @@ public class MarketService {
     public void deleteMarketById(Long marketId) {
 
         marketRepository.deleteById(marketId);
+    }
+
+    public void makePrediction(Long marketId) {
+
+
     }
 
 }

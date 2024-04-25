@@ -3,13 +3,14 @@ import com.predictions.predictions.models.Market;
 import com.predictions.predictions.models.Security;
 import com.predictions.predictions.services.MarketService;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
-
 @Controller
-//@RequestMapping("/markets")
+@RequestMapping("/markets")
 public class MarketController {
 
     private final MarketService marketService;
@@ -18,16 +19,19 @@ public class MarketController {
         this.marketService = marketService;
     }
 
-    @GetMapping("/markets")
+   @GetMapping()
     public String getMarkets(Model model) {
 
         List<Market> marketsList = marketService.getMarkets();
+
+        //List<Security> securitiesList = marketService.getSecuritiesById
 
         // Iterate through the list of markets and print each market's details
         for (Market market : marketsList) {
             System.out.println("Market ID: " + market.getId());
             System.out.println("Market Title: " + market.getTitle());
             System.out.println("Market Description: " + market.getDescription());
+            System.out.println("market Securities: " + market.getSecurities());
         }
 
         model.addAttribute("content", "markets");
@@ -40,7 +44,7 @@ public class MarketController {
         return marketService.getMarketById(marketId);
     }
 
-    @GetMapping("/add_market")
+    @GetMapping("/{add_market}")
     public String addMarkets(Model model) {
 
         List<Market> marketsList = marketService.getMarkets();
@@ -57,8 +61,25 @@ public class MarketController {
 
         return "layouts/app-layout";
     }
-    @PostMapping
-    public String createMarket(@ModelAttribute Market market) {
+    @PostMapping()
+    public String createMarket(@ModelAttribute Market market,  @RequestParam("security") String[] securities) {
+
+      System.out.println(market);
+
+       List<Security> securitiesList = new ArrayList<>();
+
+        for (String item : securities) {
+
+            Security newSecurity = new Security();
+
+            newSecurity.setName(item);
+
+            newSecurity.setMarket(market);
+
+            securitiesList.add(newSecurity);
+        }
+
+        market.setSecurities(securitiesList);
         marketService.createMarket(market);
         return "redirect:/markets";
     }
