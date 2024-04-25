@@ -1,7 +1,12 @@
 package com.predictions.predictions.models;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Set;
+
+@Data
 @Entity
 public class Security {
     @Id
@@ -10,6 +15,9 @@ public class Security {
     private String name;
     private double price;
     private boolean isOpen;
+
+//    @OneToMany(mappedBy = "security", cascade = CascadeType.ALL)
+//    private Set<Prediction> predictions;
 
     @ManyToOne
     @JoinColumn(name = "market_id")
