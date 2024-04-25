@@ -1,6 +1,8 @@
 package com.predictions.predictions.models;
 
 import jakarta.persistence.*;
+import org.springframework.transaction.annotation.Transactional;
+//import jakarta.transaction.Transactional;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -13,17 +15,31 @@ public class Market {
 
     private String title;
     private String description;
-    @OneToMany(mappedBy = "market", cascade = CascadeType.ALL, orphanRemoval = true)
+
+    private String marketType;
+    @OneToMany(mappedBy = "market", fetch = FetchType.EAGER, cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Security> securities;
 
-    public Market (String title, String description, Long id) {
 
-        this.id = id;
+    public Market (String title, String description, List<Security> securities, String marketType) {
+
         this.title = title;
         this.description = description;
-        this.securities = new ArrayList<>();
+        //this.securities = new ArrayList<>();
 
+        this.marketType = marketType;
+
+        this.securities = securities;
+
+
+
+        //Security newSecurity =new Security();
+        //newSecurity.setName(security);
+
+        //this.securities.add(newSecurity);
     }
+
+
 
     public Market () {}
 
