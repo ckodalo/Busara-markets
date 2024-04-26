@@ -39,13 +39,21 @@ public class MarketController {
         return "layouts/app-layout";
     }
 
-    @GetMapping("markets/{marketId}")
-    public Market getMarket(@PathVariable Long marketId) {
-        return marketService.getMarketById(marketId);
+    @GetMapping("{marketId}")
+    public String getMarket(Model model, @PathVariable Long marketId) {
+
+        Market targetMarket = marketService.getMarketById(marketId);
+
+        model.addAttribute("content", "market");
+
+        model.addAttribute("market", targetMarket);
+
+        return "layouts/app-layout";
+
     }
 
-    @GetMapping("/{add_market}")
-    public String addMarkets(Model model) {
+    @GetMapping("/create")
+    public String create(Model model) {
 
         List<Market> marketsList = marketService.getMarkets();
 
@@ -56,12 +64,12 @@ public class MarketController {
             System.out.println("Market Description: " + market.getDescription());
         }
 
-        model.addAttribute("content", "add-markets");
+        model.addAttribute("content", "create");
         model.addAttribute("marketsList", marketsList);
 
         return "layouts/app-layout";
     }
-    @PostMapping()
+    @PostMapping("/create")
     public String createMarket(@ModelAttribute Market market,  @RequestParam("security") String[] securities) {
 
       System.out.println(market);
