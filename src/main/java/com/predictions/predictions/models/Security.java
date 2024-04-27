@@ -16,8 +16,8 @@ public class Security {
     private double price;
     private boolean isOpen;
 
-//    @OneToMany(mappedBy = "security", cascade = CascadeType.ALL)
-//    private Set<Prediction> predictions;
+    @OneToMany(mappedBy = "security", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Prediction> predictions;
 
     @ManyToOne
     @JoinColumn(name = "market_id")
