@@ -1,7 +1,9 @@
 package com.predictions.predictions.controllers;
 import com.predictions.predictions.models.Market;
+import com.predictions.predictions.models.Prediction;
 import com.predictions.predictions.models.Security;
 import com.predictions.predictions.services.MarketService;
+import com.predictions.predictions.services.SecurityService;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -15,8 +17,12 @@ public class MarketController {
 
     private final MarketService marketService;
 
-    public MarketController(MarketService marketService) {
+    private final SecurityService securityService;
+
+    public MarketController(MarketService marketService, SecurityService securityService) {
         this.marketService = marketService;
+
+        this.securityService = securityService;
     }
 
    @GetMapping()
@@ -76,6 +82,8 @@ public class MarketController {
 
        List<Security> securitiesList = new ArrayList<>();
 
+       marketService.createMarket(market);
+
         for (String item : securities) {
 
             Security newSecurity = new Security();
@@ -84,11 +92,13 @@ public class MarketController {
 
             newSecurity.setMarket(market);
 
+           securityService.saveSecurity(newSecurity);
+
             securitiesList.add(newSecurity);
         }
 
         market.setSecurities(securitiesList);
-        marketService.createMarket(market);
+
         return "redirect:/markets";
     }
 
@@ -103,9 +113,17 @@ public class MarketController {
         return "redirect:/markets";
     }
 
-//    @PostMapping("marketId")
-//    public String makePrediction(@PathVariable Long markedId) {
-//        marketService.makePrediction(marketId);
+//    @PostMapping("predict")
+//    public String predict(@ModelAttribute Security security, @PathVariable String prediction) {
+//
+//            Prediction newPrediction = new Prediction();
+//
+//            newPrediction.setValue(prediction);
+//
+//            newPrediction.setSecurity(security);
+//
+//        marketService.makePrediction(newPrediction);
+//
 //        return "redirect:/markets";
 //    }
 }

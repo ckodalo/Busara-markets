@@ -23,9 +23,9 @@ public class MarketService {
         return marketRepository.findById(marketId).orElse(null);
     }
 
-    public Market createMarket(Market market) {
+    public void createMarket(Market market) {
 
-        return marketRepository.save(market);
+        marketRepository.save(market);
     }
 
     public Market addSecurityToMarket(Long marketId, Security security) {
@@ -47,9 +47,9 @@ public class MarketService {
         marketRepository.deleteById(marketId);
     }
 
-    public void makePrediction(Long marketId) {
-
-
-    }
+//    public void makePrediction(Long marketId) {
+//
+//
+//    }
 
 }
