@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -19,6 +20,8 @@ public class Prediction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String value;
+
     @ManyToOne
     @JoinColumn(name = "security_id")
     private Security security;
@@ -27,5 +30,6 @@ public class Prediction {
 //    @JoinColumn(name = "user_id")
 //    private User user;
 
+    @CreationTimestamp
     private LocalDateTime timestamp;
 }
