@@ -7,6 +7,7 @@ import com.predictions.predictions.repositories.MarketRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MarketService {
@@ -47,9 +48,15 @@ public class MarketService {
         marketRepository.deleteById(marketId);
     }
 
-//    public void makePrediction(Long marketId) {
-//
-//
-//    }
+
+    public Market findMarketById (Long marketId) {
+
+        Optional<Market> possibleMarket = marketRepository.findById(marketId);
+
+        return possibleMarket.orElse(null);
+
+    }
+
+
 
 }

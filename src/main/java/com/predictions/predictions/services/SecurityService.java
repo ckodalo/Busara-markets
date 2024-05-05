@@ -1,23 +1,57 @@
 package com.predictions.predictions.services;
 
+import com.predictions.predictions.models.Prediction;
 import com.predictions.predictions.models.Security;
+import com.predictions.predictions.repositories.PredictionRepository;
 import com.predictions.predictions.repositories.SecurityRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class SecurityService {
 
     private final SecurityRepository securityRepository;
 
-    public SecurityService (SecurityRepository securityRepository) {
+    private final PredictionRepository predictionRepository;
+
+    public SecurityService (SecurityRepository securityRepository, PredictionRepository predictionRepository) {
 
         this.securityRepository = securityRepository;
+
+        this.predictionRepository = predictionRepository;
     }
 
 
     public void saveSecurity(Security security) {
 
         securityRepository.save(security);
+    }
+
+    public int getProbability(Long securityId) {
+
+        Set<Prediction> predictions = predictionRepository.findPredictionsBySecurityId(securityId);
+
+        int yesPredictions = 0;
+        int predictionsCount = 0;
+
+        for (Prediction prediction : predictions) {
+            System.out.println("we are not isnde the predicins loop");
+            System.out.println("prediction id: " + prediction.getId());
+             predictionsCount++;
+            if (prediction.getValue().equals("yes")) {
+
+                yesPredictions++;
+            };
+        }
+        System.out.println("yesPredictions: " + yesPredictions);
+        System.out.println("preductionsCount: " + predictionsCount);
+
+        double probability = ((double) yesPredictions / predictionsCount) * 100;
+
+        System.out.println(probability);
+        return (int) probability;
     }
 
 }

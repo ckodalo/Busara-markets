@@ -1,7 +1,10 @@
 package com.predictions.predictions.controllers;
 
+import com.predictions.predictions.models.Market;
 import com.predictions.predictions.models.Prediction;
 import com.predictions.predictions.models.Security;
+import com.predictions.predictions.models.dto.PredictionForm;
+import com.predictions.predictions.services.MarketService;
 import com.predictions.predictions.services.PredictionService;
 import com.predictions.predictions.services.SecurityService;
 import org.springframework.stereotype.Controller;
@@ -18,26 +21,44 @@ public class PredictionController {
 
     private final SecurityService securityService;
 
-    public PredictionController (PredictionService predictionService, SecurityService securityService) {
+    private  final MarketService marketService;
+
+    public PredictionController (PredictionService predictionService, SecurityService securityService, MarketService marketService) {
 
         this.predictionService = predictionService;
 
         this.securityService = securityService;
+
+        this.marketService = marketService;
     }
 
     @PostMapping("/predict")
-    public String predict(@ModelAttribute Security security, @RequestParam String prediction) {
+    public String predict(@ModelAttribute Security security, @RequestParam String prediction, @RequestParam Long marketId) {
 
-        securityService.saveSecurity(security);
+        Long securityId = security.getId();
+
+        System.out.println("security id in controller is: " + securityId);
+        System.out.println("security name in controller is: " + security.getName());
+        System.out.println("market id in the given security is: " + marketId);
+
+
 
         Prediction newPrediction = new Prediction();
-
 
         newPrediction.setValue(prediction);
 
         newPrediction.setSecurity(security);
 
         predictionService.makePrediction(newPrediction);
+
+        int newProbability = securityService.getProbability(securityId);
+
+        security.setProbability(newProbability);
+        Market curentMarket = marketService.findMarketById(marketId);
+
+        security.setMarket(curentMarket);
+
+        securityService.saveSecurity(security);
 
         return "redirect:/markets";
     }

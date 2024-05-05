@@ -36,9 +36,15 @@
                                 </div>
                                 <!-- Button Group -->
                                 <div class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <div class="px-6 py-4 text-sm">
+a                                        <span th:text="'probability: ' + ${security.probability}"></span>
+                                    </div>
                                     <form id="predictionForm" th:action="@{/predict}" method="post">
-                                        <input type="hidden" name="security">
-                                        <input type="hidden" name="market">
+<!--                                            <input type="hidden" name="security">-->
+                                        <input type="hidden" id="securityIdInput" name="id" th:value="${security.id}">
+                                        <input type="hidden" id="securityNameInput" name="name" th:value="${security.name}">
+                                        <input type="hidden" name="marketId" th:value="${market.id}">
+
                                         <div class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                             <button type="button" onclick="setPrediction('yes', event)" class="px-4 py-2 bg-green-500 text-white font-semibold rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600">Yes</button>
                                             <button type="button" onclick="setPrediction('no', event)" class="px-4 py-2 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600">No</button>
@@ -55,7 +61,52 @@
         </div>
     </div>
 
-    <!-- Add button to add a new market at the bottom -->
+<!--    <div class="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">-->
+<!--        <h1 class="font-semibold text-xl text-gray-800 leading-tight">Markets</h1>-->
+<!--        <div class="mt-6 shadow-sm rounded-lg divide-y">-->
+<!--            <div class="w-full divide-y divide-gray-200">-->
+<!--                &lt;!&ndash; Loop through marketsList and generate cards &ndash;&gt;-->
+<!--                <div th:each="market : ${marketsList}" class="bg-white shadow-md rounded-lg overflow-hidden mb-4">-->
+<!--                    &lt;!&ndash; Market Card &ndash;&gt;-->
+<!--                    &lt;!&ndash; Wrap the card with a link &ndash;&gt;-->
+<!--                    <a th:href="@{'markets/' + ${market.id}}" class="block">-->
+<!--                        <div class="w-full divide-y divide-gray-200">-->
+<!--                            <div class="bg-gray-50">-->
+<!--                                <h2 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" th:text="${market.title}">Title</h2>-->
+<!--                                &lt;!&ndash; Description &ndash;&gt;-->
+<!--                                &lt;!&ndash; <p class="text-gray-600 mb-4" th:text="${market.description}">Description</p> &ndash;&gt;-->
+<!--                                &lt;!&ndash; Securities Column &ndash;&gt;-->
+<!--                            </div>-->
+<!--                            <div class="divide-y divide-gray-200 space-y-4">-->
+<!--                                &lt;!&ndash; <h3 class="text-lg font-semibold mb-2 text-gray-800">Securities</h3> &ndash;&gt;-->
+<!--                                &lt;!&ndash; Loop through securities and generate buttons &ndash;&gt;-->
+<!--                                <div th:each="security : ${market.securities}" class="flex items-center justify-between">-->
+<!--                                    <form th:action="@{/predict}" method="post">-->
+<!--                                        <input type="hidden" id="securityIdInput" name="securityId" th:value="${security.id}">-->
+<!--                                        <input type="hidden" id="securityNameInput" name="securityName" th:value="${security.name}">-->
+<!--                                        <div class="px-6 py-4 whitespace-nowrap">-->
+<!--                                            <span class="text-sm text-gray-900" th:text="${security.name}">Security</span>-->
+<!--                                        </div>-->
+<!--                                        &lt;!&ndash; Button Group &ndash;&gt;-->
+<!--                                        <div class="px-6 py-4 whitespace-nowrap text-sm font-medium">-->
+<!--                                            <div class="px-6 py-4 text-sm">-->
+<!--                                                <span th:text="'probability: ' + ${security.probability}"></span>-->
+<!--                                            </div>-->
+<!--                                            <div class="px-6 py-4 whitespace-nowrap text-sm font-medium">-->
+<!--                                                <button type="button" onclick="setPrediction('yes', event)" class="px-4 py-2 bg-green-500 text-white font-semibold rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600">Yes</button>-->
+<!--                                                <button type="button" onclick="setPrediction('no', event)" class="px-4 py-2 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600">No</button>-->
+<!--                                            </div>-->
+<!--                                            <input type="hidden" id="predictionInput" name="prediction">-->
+<!--                                        </div>-->
+<!--                                    </form>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
     <div class="flex justify-center mt-6">
         <a th:href="@{/markets/create}" class="mt-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Add Market</a>
     </div>
@@ -65,15 +116,17 @@
      function setPrediction(value, event) {
 
         event.preventDefault();
-        document.getElementById("predictionInput").value = value;
-        document.getElementById("predictionForm").submit();
+        const form = event.target.closest('form');
+        form.querySelector('#predictionInput').value = value;
+        form.submit();
 
      }
 
  </script>
 
 
-
+<!--what happens when a form submits-->
+<!--visual to show the number of votes for each security in a market-->
 
 
 

@@ -33,15 +33,18 @@ public class MarketController {
         //List<Security> securitiesList = marketService.getSecuritiesById
 
         // Iterate through the list of markets and print each market's details
-        for (Market market : marketsList) {
-            System.out.println("Market ID: " + market.getId());
-            System.out.println("Market Title: " + market.getTitle());
-            System.out.println("Market Description: " + market.getDescription());
-            System.out.println("market Securities: " + market.getSecurities());
-        }
+//        for (Market market : marketsList) {
+//            System.out.println("Market ID: " + market.getId());
+//            System.out.println("Market Title: " + market.getTitle());
+//            System.out.println("Market Description: " + market.getDescription());
+//            System.out.println("market Securities: " + market.getSecurities());
+//        }
+
+
 
         model.addAttribute("content", "markets");
         model.addAttribute("marketsList", marketsList);
+//        model.addAttribute("security", new Security());
         return "layouts/app-layout";
     }
 
@@ -63,22 +66,19 @@ public class MarketController {
 
         List<Market> marketsList = marketService.getMarkets();
 
-        // Iterate through the list of markets and print each market's details
-        for (Market market : marketsList) {
-            System.out.println("Market ID: " + market.getId());
-            System.out.println("Market Title: " + market.getTitle());
-            System.out.println("Market Description: " + market.getDescription());
-        }
-
         model.addAttribute("content", "create");
-        model.addAttribute("marketsList", marketsList);
+//        model.addAttribute("marketsList", marketsList);
 
         return "layouts/app-layout";
     }
     @PostMapping("/create")
     public String createMarket(@ModelAttribute Market market,  @RequestParam("security") String[] securities) {
 
-      System.out.println(market);
+      System.out.println("entire market: " + market);
+
+      System.out.println("just the market id : " + market.getId());
+
+
 
        List<Security> securitiesList = new ArrayList<>();
 
@@ -92,7 +92,7 @@ public class MarketController {
 
             newSecurity.setMarket(market);
 
-           securityService.saveSecurity(newSecurity);
+            securityService.saveSecurity(newSecurity);
 
             securitiesList.add(newSecurity);
         }

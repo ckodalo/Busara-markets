@@ -14,6 +14,9 @@ public class Security {
     private Long id;
     private String name;
     private double price;
+
+    private int probability;
+
     private boolean isOpen;
 
     @OneToMany(mappedBy = "security", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -23,12 +26,33 @@ public class Security {
     @JoinColumn(name = "market_id")
     private Market market;
 
-    public Security (String name, double price, Long id) {
+    public Security (String name, double price, int probability, Long id, Set<Prediction> predictions) {
 
         this.id = id;
         this.name = name;
         this.price = price;
         this.isOpen = true;
+        this.probability = getProbability(predictions);
+    }
+
+    public int getProbability(Set<Prediction> predictions) {
+
+        //securityRepository.findById(security.getId());
+
+        //Set<Prediction> predictions = security.getPredictions();
+
+        int yesPredictions = 0;
+        int predictionsCount = 0;
+
+        for (Prediction prediction : predictions) {
+            predictionsCount++;
+            if (prediction.getValue().equals("Yes")) {
+
+                yesPredictions++;
+            };
+        }
+
+        return (yesPredictions / predictionsCount) * 100;
     }
 
     public Security () {}
