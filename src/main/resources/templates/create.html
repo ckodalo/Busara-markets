@@ -1,77 +1,46 @@
 <div class="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
-  <h1 class="font-semibold text-xl text-gray-800 leading-tight">Markets</h1>
-  <form th:action="@{/markets/create}" method="post">
+  <h1 class="font-semibold text-2xl text-gray-800 leading-tight">Market</h1>
+  <form th:action="@{/markets/create}" method="post" class="space-y-4">
+    <!-- Title Field -->
     <div>
       <label for="title" class="block font-medium text-sm text-gray-700">Title:</label>
-      <input type="text" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm'" id="title" name="title" required>
+      <input type="text" class="block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" id="title" name="title" required>
     </div>
+    <!-- Description Field -->
     <div>
       <label for="description" class="block font-medium text-sm text-gray-700">Description:</label>
       <textarea class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" id="description" name="description" rows="3" required></textarea>
     </div>
+    <!-- Market Type Field -->
     <div>
       <label for="marketType" class="block font-medium text-sm text-gray-700">Market Type:</label>
       <select id="marketType" name="marketType" class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" required>
         <option value="" disabled selected>Select Market Type</option>
-        <optgroup label="Yes or No">
-          <option value="YesNo">Yes or No</option>
-          <option disabled>Example Question: Will the stock price of Company X increase tomorrow?</option>
-        </optgroup>
-        <optgroup label="Multiple Choice">
-          <option value="MultipleChoice">Multiple Choice</option>
-          <option disabled>Example Question: Which of the following cryptocurrencies do you believe will perform the best in the next month?</option>
-        </optgroup>
-        <optgroup label="Poll">
-          <option value="Poll">Poll</option>
-          <option disabled>Example Question: What is your preferred mode of transportation to commute to work?</option>
-        </optgroup>
-      </select>
 
+          <option value="YesNo">Yes or No</option>
+
+
+          <option value="MultipleChoice">Multiple Choice</option>
+
+          <option value="Poll">Poll</option>
+
+      </select>
     </div>
-    <div id="securities">
-      <div class="security-input">
+    <!-- Securities Section -->
+    <div id="securities" class="space-y-2">
+<!--      <div class="security-input flex items-center space-x-2">-->
         <label for="security1" class="block font-medium text-sm text-gray-700">Security:</label>
-        <input type="text" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm'" id="security1" name="security" required>
-      </div>
+        <input type="text" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm flex-1" id="security1" name="security" required>
+<!--      </div>-->
+
+      <button type="button" id="addSecurity" class="mt-2 inline-flex items-center px-3 py-1 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Add Security</button>
     </div>
-    <button type="button" id="addSecurity" class="mt-2 inline-flex items-center px-3 py-1 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Add Security</button>
+    <!-- Add Security Button -->
+
+    <!-- Submit Button -->
     <button type="submit" class="mt-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Add Market</button>
   </form>
-
-<!--  <div class="mt-6 bg-white shadow-sm rounded-lg divide-y">-->
-<!--    <div class="w-full divide-y divide-gray-200">-->
-<!--      &lt;!&ndash; Loop through marketsList and generate cards &ndash;&gt;-->
-<!--      <div th:each="market : ${marketsList}" class="bg-white shadow-md rounded-lg overflow-hidden">-->
-<!--        &lt;!&ndash; Market Card &ndash;&gt;-->
-<!--        <div class="w-full divide-y divide-gray-200">-->
-<!--          <div class="bg-gray-50">-->
-<!--          <h2 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" th:text="${market.title}">Title</h2>-->
-<!--&lt;!&ndash;          <p class="text-gray-600 mb-4" th:text="${market.description}">Description</p>&ndash;&gt;-->
-<!--          &lt;!&ndash; Securities Column &ndash;&gt;-->
-<!--            </div>-->
-<!--          <div class="bg-white divide-y divide-gray-200 space-y-4">-->
-<!--&lt;!&ndash;            <h3 class="text-lg font-semibold mb-2 text-gray-800">Securities</h3>&ndash;&gt;-->
-<!--            &lt;!&ndash; Loop through securities and generate buttons &ndash;&gt;-->
-<!--            <div th:each="security : ${market.securities}" class="flex items-center justify-between">-->
-<!--              <div class="px-6 py-4 whitespace-nowrap">-->
-<!--                <span class="text-sm text-gray-900" th:text="${security.name}">Security</span>-->
-<!--              </div>-->
-<!--              &lt;!&ndash; Button Group &ndash;&gt;-->
-<!--              <div class="px-6 py-4 whitespace-nowrap text-sm font-medium">-->
-<!--                &lt;!&ndash; Yes Button &ndash;&gt;-->
-<!--                <button class="px-4 py-2 bg-green-500 text-white font-semibold rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600">Yes</button>-->
-<!--                &lt;!&ndash; No Button &ndash;&gt;-->
-<!--                <button class="px-4 py-2 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600">No</button>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-
-
-  </div>
+</div>
 
 <script>
     document.getElementById('addSecurity').addEventListener('click', function() {
@@ -79,7 +48,7 @@
         var securityCount = securitiesDiv.getElementsByClassName('security-input').length + 1;
 
         var securityInput = document.createElement('div');
-        securityInput.classList.add('security-input');
+        securityInput.classList.add('security-input', 'flex', 'items-center', 'space-x-2');
 
         var label = document.createElement('label');
         label.setAttribute('for', 'security' + securityCount);
@@ -88,13 +57,23 @@
 
         var input = document.createElement('input');
         input.setAttribute('type', 'text');
-        input.classList.add('border-gray-300', 'focus:border-indigo-500', 'focus:ring-indigo-500', 'rounded-md', 'shadow-sm');
+        input.classList.add('border-gray-300', 'focus:border-indigo-500', 'focus:ring-indigo-500', 'rounded-md', 'shadow-sm', 'flex-1');
         input.setAttribute('id', 'security' + securityCount);
         input.setAttribute('name', 'security');
         input.setAttribute('required', '');
 
-        securityInput.appendChild(label);
+        var removeButton = document.createElement('button');
+        removeButton.setAttribute('type', 'button');
+        removeButton.classList.add('px-2', 'py-1', 'bg-red-500', 'text-white', 'rounded-md', 'hover:bg-red-600', 'focus:outline-none');
+        removeButton.innerText = 'Remove';
+        removeButton.addEventListener('click', function() {
+            securitiesDiv.removeChild(securityInput);
+        });
+
+
         securityInput.appendChild(input);
+        securityInput.appendChild(removeButton);
         securitiesDiv.appendChild(securityInput);
     });
 </script>
+
