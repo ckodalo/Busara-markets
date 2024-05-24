@@ -12,7 +12,6 @@ import java.util.Optional;
 @Service
 public class MarketService {
 
-
     private final MarketRepository marketRepository;
 
     public MarketService(MarketRepository marketRepository) {
@@ -57,6 +56,21 @@ public class MarketService {
 
     }
 
+    // method to set new probability and price
+
+    public void doThings (Long marketId) {
+
+        Market targetMarket = findMarketById(marketId);
+
+        List<Security> marketSecurities = targetMarket.getSecurities();
+
+        targetMarket.calculateShareCost(marketSecurities);
+
+        targetMarket.calculateProbabilities(marketSecurities);
 
 
+
+        marketRepository.save(targetMarket);
+
+    }
 }

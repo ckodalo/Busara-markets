@@ -32,6 +32,9 @@ public class PredictionController {
         this.marketService = marketService;
     }
 
+    //this is same as buying share,, what about selling share
+
+    // this method should take nshares
     @PostMapping("/predict")
     public String predict(@ModelAttribute Security security, @RequestParam String prediction, @RequestParam Long marketId) {
 
@@ -41,8 +44,6 @@ public class PredictionController {
         System.out.println("security name in controller is: " + security.getName());
         System.out.println("market id in the given security is: " + marketId);
 
-
-
         Prediction newPrediction = new Prediction();
 
         newPrediction.setValue(prediction);
@@ -51,14 +52,8 @@ public class PredictionController {
 
         predictionService.makePrediction(newPrediction);
 
-        int newProbability = securityService.getProbability(securityId);
+         marketService.doThings(marketId);
 
-        security.setProbability(newProbability);
-        Market curentMarket = marketService.findMarketById(marketId);
-
-        security.setMarket(curentMarket);
-
-        securityService.saveSecurity(security);
 
         return "redirect:/markets";
     }
