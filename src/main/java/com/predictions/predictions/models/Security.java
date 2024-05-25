@@ -2,20 +2,26 @@ package com.predictions.predictions.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 
 @Data
 @Entity
+@NoArgsConstructor
 public class Security {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    //this is cost parameter.. lol no
     private double price;
 
-    private int probability;
+    private double quantity;
+
+    private double probability;
 
     private boolean isOpen;
 
@@ -26,11 +32,12 @@ public class Security {
     @JoinColumn(name = "market_id")
     private Market market;
 
-    public Security (String name, double price, int probability, Long id, Set<Prediction> predictions) {
+    public Security (String name, double price, int probability, Long id, Set<Prediction> predictions, double quantity) {
 
         this.id = id;
         this.name = name;
         this.price = price;
+        this.quantity = quantity;
         this.isOpen = true;
         this.probability = getProbability(predictions);
     }
@@ -55,37 +62,4 @@ public class Security {
         return (yesPredictions / predictionsCount) * 100;
     }
 
-    public Security () {}
-
-    // Getters and setters
-
-    public  Long getId() {return id;}
-
-    public void setId(Long id) {
-
-        this.id = id;
-    }
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public boolean isOpen() {
-        return isOpen;
-    }
-
-    public void setOpen(boolean open) {
-        isOpen = open;
-    }
 }
