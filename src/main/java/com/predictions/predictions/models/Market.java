@@ -138,7 +138,7 @@ public class Market {
         for (Security security : securities) {
 
             double probability = Math.exp(security.getQuantity() / liquidity) / denom;
-            security.setProbability(probability);
+            security.setProbability(Math.round(probability * 100));
 
 
 
