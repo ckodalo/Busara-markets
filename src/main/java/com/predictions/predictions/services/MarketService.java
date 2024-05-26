@@ -58,13 +58,15 @@ public class MarketService {
 
     // method to set new probability and price
 
-    public void doThings (Long marketId) {
+    public void doThings (Long marketId, Long securityId, int nShares) {
 
         Market targetMarket = findMarketById(marketId);
 
         List<Security> marketSecurities = targetMarket.getSecurities();
 
-        targetMarket.calculateShareCost(marketSecurities);
+//        targetMarket.calculateShareCost(marketSecurities);
+
+        targetMarket.calculateTransactionCost(marketSecurities, nShares, securityId);
 
         targetMarket.calculateProbabilities(marketSecurities);
 

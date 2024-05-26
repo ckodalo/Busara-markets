@@ -40,9 +40,11 @@ public class PredictionController {
 
         Long securityId = security.getId();
 
+        String securityName = security.getName();
+
         System.out.println("nshares in controller is: " + nShares);
         System.out.println("security id in controller is: " + securityId);
-        System.out.println("security name in controller is: " + security.getName());
+        System.out.println("security name in controller is: " + securityName);
         System.out.println("market id in the given security is: " + marketId);
 
         Prediction newPrediction = new Prediction();
@@ -53,8 +55,7 @@ public class PredictionController {
 
         predictionService.makePrediction(newPrediction);
 
-         marketService.doThings(marketId);
-
+        marketService.doThings(marketId, securityId, nShares);
 
         return "redirect:/markets";
     }

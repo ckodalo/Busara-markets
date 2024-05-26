@@ -71,7 +71,6 @@ public class Market {
 
     public double calculateCost (List<Security> securities) {
 
-
         System.out.println("liwudity is " + this.liquidity);
 
         double sum = 0.0;
@@ -93,6 +92,12 @@ public class Market {
         List<Security> newSecurities = new ArrayList<>(securities);
 
         for (Security security : newSecurities) {
+
+
+            System.out.println("security in calculateTransactionCost is :" + security.getName());
+
+            System.out.println("security equals provided: " + Objects.equals(security.getId(), securityId));
+
 
             if (Objects.equals(security.getId(), securityId)) {
 
@@ -130,19 +135,14 @@ public class Market {
         for (Security security : securities) {
 
             denom += Math.exp(security.getQuantity() / liquidity);
-
             System.out.println("denom in calculcaeProbailities is " + denom);
-
         }
 
         for (Security security : securities) {
 
             double probability = Math.exp(security.getQuantity() / liquidity) / denom;
             security.setProbability(Math.round(probability * 100));
-
-
-
-            System.out.println("current probability of " + security.getName() + "winning is" + security.getProbability());
+            System.out.println("current probability of " + security.getName() + " winning is" + security.getProbability());
         }
 
     }
