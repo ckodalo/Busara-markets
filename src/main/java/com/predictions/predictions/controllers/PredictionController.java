@@ -36,10 +36,11 @@ public class PredictionController {
 
     // this method should take nshares
     @PostMapping("/predict")
-    public String predict(@ModelAttribute Security security, @RequestParam String prediction, @RequestParam Long marketId) {
+    public String predict(@ModelAttribute Security security, @RequestParam String prediction, @RequestParam Long marketId, @RequestParam int nShares ) {
 
         Long securityId = security.getId();
 
+        System.out.println("nshares in controller is: " + nShares);
         System.out.println("security id in controller is: " + securityId);
         System.out.println("security name in controller is: " + security.getName());
         System.out.println("market id in the given security is: " + marketId);

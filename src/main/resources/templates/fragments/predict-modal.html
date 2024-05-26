@@ -1,0 +1,36 @@
+<div th:fragment="predictModalFragment">
+    <!-- Modal -->
+    <div id="predictionModal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Enter Number of Shares</h2>
+            <div id="modalSecurity" class="mb-4"></div>
+            <div class="mb-4">
+                <p class="block text-sm font-medium text-gray-700">Market:</p>
+                <p id="modalMarket" class="mt-1 block text-sm text-gray-900"></p>
+            </div>
+            <form id="modalForm" th:action="@{/predict}" method="post">
+                <input type="hidden" name="id" id="modalSecurityId">
+                <input type="hidden" name="marketId" id="modalMarketId">
+                <input type="hidden" name="prediction" id="modalPredictionValue">
+                <div class="mb-4">
+                    <label for="nShares" class="block text-sm font-medium text-gray-700">Number of Shares</label>
+                    <input type="number" id="nShares" name="nShares" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                </div>
+                <div class="flex justify-end">
+                    <button type="button" class="mr-2 px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div id="modalOverlay" class="fixed inset-0 bg-gray-800 bg-opacity-50 hidden"></div>
+</div>
+
+<script>
+    function closeModal() {
+        document.getElementById('predictionModal').classList.add('hidden');
+        document.getElementById('modalOverlay').classList.add('hidden');
+    }
+</script>

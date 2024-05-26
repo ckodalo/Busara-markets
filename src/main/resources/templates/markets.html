@@ -1,3 +1,5 @@
+
+
 <div class="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
     <h1 class="font-semibold text-xl text-gray-800 leading-tight">Markets</h1>
     <div class="mt-6 shadow-sm rounded-lg divide-y">
@@ -17,13 +19,14 @@
                                 <div class="text-sm text-gray-900" th:text="${security.name}">Security</div>
                                 <div class="text-sm text-gray-600" th:text="'probability: ' + ${#numbers.formatDecimal(security.probability, 1, 0)} + '%'"></div>
                                 <!-- Button Group -->
-                                <form id="predictionForm" th:action="@{/predict}" method="post" class="flex items-center space-x-2">
+                                <form id="predictionForm" class="flex items-center space-x-2">
                                     <input type="hidden" name="id" th:value="${security.id}">
                                     <input type="hidden" name="name" th:value="${security.name}">
                                     <input type="hidden" name="marketId" th:value="${market.id}">
                                     <input type="hidden" id="predictionInput" name="prediction">
-                                    <button type="button" onclick="setPrediction('yes', event)" class="px-2 py-1 bg-green-500 text-white font-semibold rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600 text-xs">Yes</button>
-                                    <button type="button" onclick="setPrediction('no', event)" class="px-2 py-1 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600 text-xs">No</button>
+
+                                    <button type="button" onclick="openModal('yes', event)" class="px-2 py-1 bg-green-500 text-white font-semibold rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600 text-xs">Yes</button>
+                                    <button type="button" onclick="openModal('no', event)" class="px-2 py-1 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600 text-xs">No</button>
                                 </form>
                             </div>
                         </div>
@@ -36,26 +39,39 @@
     <div class="flex justify-center mt-6">
         <a th:href="@{/markets/create}" class="mt-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Add Market</a>
     </div>
+
+    <!-- Include the modal fragment -->
+    <div th:insert="~{fragments/predict-modal :: predictModalFragment}"></div>
+
 </div>
 
 <script>
-    function setPrediction(value, event) {
+
+    function openModal (value, event) {
+
         event.preventDefault();
+
         const form = event.target.closest('form');
-        form.querySelector('#predictionInput').value = value;
-        form.submit();
+        const securityId = form.querySelector('input[name="id"]').value;
+        const securityName = form.querySelector('input[name="name"]').value;
+        const marketId = form.querySelector('input[name="marketId"]').value;
+
+        // Set the values in the modal
+        document.getElementById('modalSecurityId').value = securityId;
+        document.getElementById('modalSecurity').textContent = "Security: " + securityName;
+        document.getElementById('modalMarketId').value = marketId;
+        document.getElementById('modalPredictionValue').value = value;
+
+          // Show the modal and overlay
+        document.getElementById('predictionModal').classList.remove('hidden');
+        document.getElementById('modalOverlay').classList.remove('hidden');
+    }
+
+    function closeModal() {
+        document.getElementById('predictionModal').classList.add('hidden');
+        document.getElementById('modalOverlay').classList.add('hidden');
     }
 </script>
 
 
-
-<!--what happens when a form submits-->
-<!--visual to show the number of votes for each security in a market-->
-
-
-
-
-
-<!--</body>-->
-<!--</html>-->
 
