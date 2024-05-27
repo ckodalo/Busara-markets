@@ -1,41 +1,59 @@
+
 <div class="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
   <h1 class="font-semibold text-2xl text-gray-800 leading-tight">Market</h1>
-  <form th:action="@{/markets/create}" method="post" class="space-y-4">
-    <!-- Title Field -->
-    <div>
-      <label for="title" class="block font-medium text-sm text-gray-700">Title:</label>
-      <input type="text" class="block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" id="title" name="title" required>
-    </div>
-    <!-- Description Field -->
-    <div>
-      <label for="description" class="block font-medium text-sm text-gray-700">Description:</label>
-      <textarea class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" id="description" name="description" rows="3" required></textarea>
-    </div>
+  <form id="marketForm" action="/markets/create" method="post" class="space-y-4">
     <!-- Market Type Field -->
     <div>
       <label for="marketType" class="block font-medium text-sm text-gray-700">Market Type:</label>
       <select id="marketType" name="marketType" class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" required>
         <option value="" disabled selected>Select Market Type</option>
-
-          <option value="YesNo">Yes or No</option>
-
-
-          <option value="MultipleChoice">Multiple Choice</option>
-
-          <option value="Poll">Poll</option>
-
+        <option value="YesNo">Yes or No</option>
+        <option value="MultipleChoice">Multiple Choice</option>
+        <option value="Poll">Poll</option>
       </select>
     </div>
-    <!-- Securities Section -->
-    <div id="securities" class="space-y-2">
-<!--      <div class="security-input flex items-center space-x-2">-->
-        <label for="security1" class="block font-medium text-sm text-gray-700">Security:</label>
-        <input type="text" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm flex-1" id="security1" name="security" required>
-<!--      </div>-->
 
-      <button type="button" id="addSecurity" class="mt-2 inline-flex items-center px-3 py-1 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Add Security</button>
+    <!-- Common Fields -->
+    <div id="commonFields">
+      <div>
+        <label for="title" class="block font-medium text-sm text-gray-700">Title:</label>
+        <input type="text" class="block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" id="title" name="title" required>
+      </div>
+      <div>
+        <label for="description" class="block font-medium text-sm text-gray-700">Description:</label>
+        <textarea class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" id="description" name="description" rows="3" required></textarea>
+      </div>
     </div>
-    <!-- Add Security Button -->
+
+    <!-- Yes/No Specific Fields -->
+    <div id="yesNoFields" class="hidden">
+      <div>
+        <label for="yesNoOption" class="block font-medium text-sm text-gray-700">Yes/No Option:</label>
+        <input type="text" id="yesNoOption" name="yesNoOption" class="block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+      </div>
+    </div>
+
+    <!-- Multiple Choice Specific Fields -->
+    <div id="multipleChoiceFields" class="hidden">
+      <div id="multipleChoices" class="space-y-2">
+        <label class="block font-medium text-sm text-gray-700">Choices:</label>
+        <div class="choice-input flex items-center space-x-2">
+          <input type="text" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm flex-1" name="security[]" required>
+        </div>
+        <button type="button" id="addChoice" class="mt-2 inline-flex items-center px-3 py-1 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Add Choice</button>
+      </div>
+    </div>
+
+    <!-- Poll Specific Fields -->
+    <div id="pollFields" class="hidden">
+      <div id="pollSecurities" class="space-y-2">
+        <label class="block font-medium text-sm text-gray-700">Securities:</label>
+        <div class="security-input flex items-center space-x-2">
+          <input type="text" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm flex-1" name="security[]" required>
+        </div>
+        <button type="button" id="addSecurity" class="mt-2 inline-flex items-center px-3 py-1 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Add Security</button>
+      </div>
+    </div>
 
     <!-- Submit Button -->
     <button type="submit" class="mt-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Add Market</button>
@@ -43,37 +61,68 @@
 </div>
 
 <script>
-    document.getElementById('addSecurity').addEventListener('click', function() {
-        var securitiesDiv = document.getElementById('securities');
-        var securityCount = securitiesDiv.getElementsByClassName('security-input').length + 1;
+  document.getElementById('marketType').addEventListener('change', function() {
+    var selectedType = this.value;
+    document.getElementById('yesNoFields').classList.add('hidden');
+    document.getElementById('multipleChoiceFields').classList.add('hidden');
+    document.getElementById('pollFields').classList.add('hidden');
 
-        var securityInput = document.createElement('div');
-        securityInput.classList.add('security-input', 'flex', 'items-center', 'space-x-2');
+    if (selectedType === 'YesNo') {
+      document.getElementById('yesNoFields').classList.remove('hidden');
+    } else if (selectedType === 'MultipleChoice') {
+      document.getElementById('multipleChoiceFields').classList.remove('hidden');
+    } else if (selectedType === 'Poll') {
+      document.getElementById('pollFields').classList.remove('hidden');
+    }
+  });
 
-        var label = document.createElement('label');
-        label.setAttribute('for', 'security' + securityCount);
-        label.classList.add('block', 'font-medium', 'text-sm', 'text-gray-700');
-        label.innerText = 'Security:';
+  document.getElementById('addChoice').addEventListener('click', function() {
+    var multipleChoicesDiv = document.getElementById('multipleChoices');
+    var choiceInput = document.createElement('div');
+    choiceInput.classList.add('choice-input', 'flex', 'items-center', 'space-x-2');
 
-        var input = document.createElement('input');
-        input.setAttribute('type', 'text');
-        input.classList.add('border-gray-300', 'focus:border-indigo-500', 'focus:ring-indigo-500', 'rounded-md', 'shadow-sm', 'flex-1');
-        input.setAttribute('id', 'security' + securityCount);
-        input.setAttribute('name', 'security');
-        input.setAttribute('required', '');
+    var input = document.createElement('input');
+    input.setAttribute('type', 'text');
+    input.classList.add('border-gray-300', 'focus:border-indigo-500', 'focus:ring-indigo-500', 'rounded-md', 'shadow-sm', 'flex-1');
+    input.setAttribute('name', 'security[]');
+    input.setAttribute('required', '');
 
-        var removeButton = document.createElement('button');
-        removeButton.setAttribute('type', 'button');
-        removeButton.classList.add('px-2', 'py-1', 'bg-red-500', 'text-white', 'rounded-md', 'hover:bg-red-600', 'focus:outline-none');
-        removeButton.innerText = 'Remove';
-        removeButton.addEventListener('click', function() {
-            securitiesDiv.removeChild(securityInput);
-        });
-
-
-        securityInput.appendChild(input);
-        securityInput.appendChild(removeButton);
-        securitiesDiv.appendChild(securityInput);
+    var removeButton = document.createElement('button');
+    removeButton.setAttribute('type', 'button');
+    removeButton.classList.add('px-2', 'py-1', 'bg-red-500', 'text-white', 'rounded-md', 'hover:bg-red-600', 'focus:outline-none');
+    removeButton.innerText = 'Remove';
+    removeButton.addEventListener('click', function() {
+      multipleChoicesDiv.removeChild(choiceInput);
     });
+
+    choiceInput.appendChild(input);
+    choiceInput.appendChild(removeButton);
+    multipleChoicesDiv.appendChild(choiceInput);
+  });
+
+  document.getElementById('addSecurity').addEventListener('click', function() {
+    var pollSecuritiesDiv = document.getElementById('pollSecurities');
+    var securityInput = document.createElement('div');
+    securityInput.classList.add('security-input', 'flex', 'items-center', 'space-x-2');
+
+    var input = document.createElement('input');
+    input.setAttribute('type', 'text');
+    input.classList.add('border-gray-300', 'focus:border-indigo-500', 'focus:ring-indigo-500', 'rounded-md', 'shadow-sm', 'flex-1');
+    input.setAttribute('name', 'security[]');
+    input.setAttribute('required', '');
+
+    var removeButton = document.createElement('button');
+    removeButton.setAttribute('type', 'button');
+    removeButton.classList.add('px-2', 'py-1', 'bg-red-500', 'text-white', 'rounded-md', 'hover:bg-red-600', 'focus:outline-none');
+    removeButton.innerText = 'Remove';
+    removeButton.addEventListener('click', function() {
+      pollSecuritiesDiv.removeChild(securityInput);
+    });
+
+    securityInput.appendChild(input);
+    securityInput.appendChild(removeButton);
+    pollSecuritiesDiv.appendChild(securityInput);
+  });
 </script>
+
 
