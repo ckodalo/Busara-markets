@@ -19,6 +19,10 @@ public class Market {
     private String title;
     private String description;
 
+    private String category;
+
+    private String closingDate;
+
     private String marketType;
 
     private double liquidity = 100.0;
