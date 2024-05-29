@@ -12,11 +12,10 @@
                         </div>
                     </div>
                     <div class="divide-y divide-gray-200 space-y-2 px-6 py-4">
-                        <!--            <h3 class="text-lg font-semibold mb-2 text-gray-800">Securities</h3>-->
                         <!-- Loop through securities and generate buttons -->
                         <div th:if="${market.marketType == 'YesNo'}" class="flex flex-wrap justify-around p-4">
-                            <div th:each="security : ${market.securities}" class="w-1/2 md:w-1/4 p-2">
-                                <div class="text-sm text-gray-600" th:text="'probability: ' + ${#numbers.formatDecimal(security.probability, 1, 0)} + '%'"></div>
+                            <div th:each="security : ${market.securities}" class="w-full md:w-1/2 lg:w-1/3 p-2">
+                                <div class="text-sm text-gray-600" th:text="'Probability: ' + ${#numbers.formatDecimal(security.probability, 1, 0)} + '%'"></div>
                                 <form class="predictionForm flex justify-center">
                                     <input type="hidden" class="securityId" name="id" th:value="${security.id}">
                                     <input type="hidden" class="securityName" name="name" th:value="${security.name}">
@@ -32,13 +31,12 @@
                             </div>
                         </div>
 
-
                         <!-- Conditional rendering for Multiple Choice and Yes/No -->
                         <div th:if="${market.marketType != 'YesNo'}">
                             <!-- Loop through securities and generate buttons -->
                             <div th:each="security : ${market.securities}" class="flex items-center justify-between space-y-2">
                                 <div class="text-sm text-gray-900" th:text="${security.name}">Security</div>
-                                <div class="text-sm text-gray-600" th:text="'probability: ' + ${#numbers.formatDecimal(security.probability, 1, 0)} + '%'"></div>
+                                <div class="text-sm text-gray-600" th:text="'Probability: ' + ${#numbers.formatDecimal(security.probability, 1, 0)} + '%'"></div>
                                 <!-- Button Group -->
                                 <form class="predictionForm flex items-center space-x-2">
                                     <input type="hidden" class="securityId" name="id" th:value="${security.id}">
@@ -56,10 +54,16 @@
         </div>
     </div>
 
+    <!-- Comments Section -->
+    <div class="mt-6">
+        <h2 class="font-semibold text-lg text-gray-800">Comments</h2>
+        <!-- Insert comments section here -->
+    </div>
+
     <!-- Add button to add a new market at the bottom -->
-<!--    <div class="flex justify-center mt-6">-->
-<!--        <a href="markets/add_market" class="mt-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Add Market</a>-->
-<!--    </div>-->
+    <!--    <div class="flex justify-center mt-6">-->
+    <!--        <a href="markets/add_market" class="mt-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Add Market</a>-->
+    <!--    </div>-->
 
     <div th:insert="~{fragments/predict-modal :: predictModalFragment}"></div>
 
