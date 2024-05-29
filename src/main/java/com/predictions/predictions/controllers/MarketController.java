@@ -26,26 +26,24 @@ public class MarketController {
     }
 
    @GetMapping()
-    public String getMarkets(Model model) {
+    public String getMarkets(@RequestParam(value = "search", required = false) String search, Model model) {
 
-        List<Market> marketsList = marketService.getMarkets();
+        List<Market> marketsList;
 
-        //List<Security> securitiesList = marketService.getSecuritiesById
+        if (search != null && !search.isEmpty()) {
 
-        // Iterate through the list of markets and print each market's details
-//        for (Market market : marketsList) {
-//            System.out.println("Market ID: " + market.getId());
-//            System.out.println("Market Title: " + market.getTitle());
-//            System.out.println("Market Description: " + market.getDescription());
-//            System.out.println("market Securities: " + market.getSecurities());
-//        }
+            marketsList = marketService.searchMarkets(search);
+        }
+        else {
+        marketsList = marketService.getMarkets();
 
+       }
 
-
-        model.addAttribute("content", "markets");
-        model.addAttribute("marketsList", marketsList);
+       model.addAttribute("content", "markets");
+       model.addAttribute("marketsList", marketsList);
 //        model.addAttribute("security", new Security());
-        return "layouts/app-layout";
+
+       return "layouts/app-layout";
     }
 
     @GetMapping("{marketId}")
@@ -74,11 +72,11 @@ public class MarketController {
     @PostMapping("/create")
     public String createMarket(@ModelAttribute Market market,  @RequestParam("security") String[] securities) {
 
-      System.out.println("entire market: " + market);
+        System.out.println("entered create action");
+
+        System.out.println("entire market: " + market);
 
       System.out.println("just the market id : " + market.getId());
-
-
 
        List<Security> securitiesList = new ArrayList<>();
 

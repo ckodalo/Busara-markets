@@ -19,6 +19,10 @@ public class MarketService {
     }
 
     public List<Market> getMarkets () {return marketRepository.findAll();}
+
+    public List<Market> searchMarkets(String search) {
+        return marketRepository.findByTitleContainingIgnoreCase(search);
+    }
     public Market getMarketById(Long marketId) {
         return marketRepository.findById(marketId).orElse(null);
     }
