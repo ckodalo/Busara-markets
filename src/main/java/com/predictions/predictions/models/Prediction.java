@@ -22,6 +22,8 @@ public class Prediction {
 
     private String value;
 
+    private int nShares;
+
     @ManyToOne
     @JoinColumn(name = "security_id")
     private Security security;
