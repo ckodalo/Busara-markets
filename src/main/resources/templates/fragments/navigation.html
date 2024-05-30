@@ -59,16 +59,63 @@
             </svg>
             <span class="sr-only">Search</span>
         </button>
-        <span
-                class="relative flex shrink-0 overflow-hidden rounded-full h-9 w-9"
-                type="button"
-                id="radix-:r6:"
-                aria-haspopup="menu"
-                aria-expanded="false"
-                data-state="closed"
-        >
-      <span class="flex h-full w-full items-center justify-center rounded-full bg-muted">JP</span>
-      <span class="sr-only">Toggle </span>
-    </span>
+<!--        <span-->
+<!--                class="relative flex shrink-0 overflow-hidden rounded-full h-9 w-9"-->
+<!--                type="button"-->
+<!--                id="radix-:r6:"-->
+<!--                aria-haspopup="menu"-->
+<!--                aria-expanded="false"-->
+<!--                data-state="closed"-->
+<!--        >-->
+<!--      <span class="flex h-full w-full items-center justify-center rounded-full bg-muted">JP</span>-->
+<!--      <span class="sr-only">Toggle </span>-->
+<!--    </span>-->
+        <!-- Conditional User Button -->
+        <div th:if="${user != null}" class="relative flex shrink-0 overflow-hidden rounded-full h-9 w-9">
+            <span class="flex h-full w-full items-center justify-center rounded-full bg-muted" th:text="${user.initials}">JP</span>
+            <span class="sr-only">User Menu</span>
+        </div>
+        <button th:if="${user == null}" onClick="openLoginModal()" class="text-sm font-medium text-gray-500 hover:text-gray-700">
+            Log In
+        </button>
     </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden">
+        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+            <div th:insert="fragments/login-modal :: loginModalFragment"></div>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signupModal" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden">
+        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+            <div th:insert="~{fragments/signup-modal :: signupModalFragment}"></div>
+        </div>
+    </div>
+
+    <script>
+        function openLoginModal() {
+            document.getElementById('loginModal').classList.remove('hidden');
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').classList.add('hidden');
+        }
+
+        function openSignupModal() {
+            document.getElementById('signupModal').classList.remove('hidden');
+        }
+
+        function closeSignupModal() {
+            document.getElementById('signupModal').classList.add('hidden');
+        }
+
+         function openLoginModalSpecial() {
+            document.getElementById('signupModal').classList.add('hidden');
+            document.getElementById('loginModal').classList.remove('hidden');
+        }
+    </script>
 </header>
+
+
