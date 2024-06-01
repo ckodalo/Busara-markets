@@ -2,6 +2,9 @@ package com.predictions.predictions.services;
 
 import com.predictions.predictions.repositories.UserRepository;
 import com.predictions.predictions.models.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,12 +15,18 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public UserService (UserRepository userRepository) {
 
         this.userRepository = userRepository;
     }
 
     public User createUser (User user) {
+
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
 
        return userRepository.save(user);
     }
@@ -44,8 +53,6 @@ public class UserService {
       if (foundUSer.getPassword().equals(user.getPassword())) {
 
           System.out.println(user.getEmail() + "should be logged in");
-
-
 
       }
 
