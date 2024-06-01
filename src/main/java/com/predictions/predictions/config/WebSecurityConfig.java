@@ -4,6 +4,7 @@ import com.predictions.predictions.services.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -19,6 +20,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebSecurity
 public class WebSecurityConfig {
 
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
@@ -26,7 +29,6 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/", "/home", "/markets", "/user/signup", "/css/**", "/js/**").permitAll()
                         .anyRequest().authenticated()
@@ -40,15 +42,18 @@ public class WebSecurityConfig {
         return http.build();
     }
 
+//     AuthenticationManagerBuilder
 
+//    @Bean
+//    public UserDetailsService userDetailsService  () {
+//
+//        return customUserDetailsService;
+//    }
 
-
-
-    @Bean
-    public UserDetailsService userDetailsService  () {
-
-        return customUserDetailsService;
-    }
+//    @Bean
+//    CustomUserDetailsService customUserDetailsService() {
+//        return new CustomUserDetailsService();
+//    }
 
 //    @Bean
 //    public UserDetailsService userDetailsService() {
