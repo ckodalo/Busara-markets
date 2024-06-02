@@ -28,9 +28,9 @@ public class Prediction {
     @JoinColumn(name = "security_id")
     private Security security;
 
-//    @ManyToOne
-//    @JoinColumn(name = "user_id")
-//    private User user;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @CreationTimestamp
     private LocalDateTime timestamp;
