@@ -71,11 +71,24 @@
 <!--      <span class="sr-only">Toggle </span>-->
 <!--    </span>-->
         <!-- Conditional User Button -->
-        <div th:if="${user != null}" class="relative flex shrink-0 overflow-hidden rounded-full h-9 w-9">
-            <span class="flex h-full w-full items-center justify-center rounded-full bg-muted" th:text="${user.initials}">JP</span>
+<!--        <div th:if="${user != null}" class="relative flex shrink-0 overflow-hidden rounded-full h-9 w-9">-->
+<!--            <span class="flex h-full w-full items-center justify-center rounded-full bg-muted" sec:authentication="name">JP</span>-->
+<!--            <span class="sr-only">User Menu</span>-->
+<!--        </div>-->
+<!--        <a th:if="${user == null}" th:href="@{/user/login}" class="text-sm font-medium text-gray-500 hover:text-gray-700">-->
+<!--            Log In-->
+<!--        </a>-->
+
+        <!-- Display user information if authenticated -->
+        <div sec:authorize="isAuthenticated()" class="relative flex shrink-0 overflow-hidden rounded-full h-9 w-9">
+        <span class="flex h-full w-full items-center justify-center rounded-full bg-muted"
+              th:text="${#strings.substring(#authentication.name, 0, 2)}">U</span>
             <span class="sr-only">User Menu</span>
         </div>
-        <a th:if="${user == null}" th:href="@{/user/login}" class="text-sm font-medium text-gray-500 hover:text-gray-700">
+
+
+        <!-- Display Log In link if not authenticated -->
+        <a sec:authorize="isAnonymous()" th:href="@{/user/login}" class="text-sm font-medium text-gray-500 hover:text-gray-700">
             Log In
         </a>
     </div>
