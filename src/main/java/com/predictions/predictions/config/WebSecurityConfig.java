@@ -37,35 +37,18 @@ public class WebSecurityConfig {
                         .loginPage("/user/login")
                         .permitAll()
                 )
-                .logout((logout) -> logout.permitAll());
+                .logout((logout) -> logout
+                        .deleteCookies("JSESSIONID")
+                        .logoutUrl("/user/logout")
+                        .logoutSuccessUrl("/markets")
+                        .invalidateHttpSession(true)
+                        .permitAll()
+                );
+
 
         return http.build();
     }
 
-//     AuthenticationManagerBuilder
-
-//    @Bean
-//    public UserDetailsService userDetailsService  () {
-//
-//        return customUserDetailsService;
-//    }
-
-//    @Bean
-//    CustomUserDetailsService customUserDetailsService() {
-//        return new CustomUserDetailsService();
-//    }
-
-//    @Bean
-//    public UserDetailsService userDetailsService() {
-//        UserDetails user =
-//                User.builder()
-//                        .username("user")
-//                        .password("password")
-//                        .roles("USER")
-//                        .build();
-//
-//        return new InMemoryUserDetailsManager(user);
-//    }
 
     // Configure password encoder
     @Bean

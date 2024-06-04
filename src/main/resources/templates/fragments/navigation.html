@@ -80,18 +80,50 @@
 <!--        </a>-->
 
         <!-- Display user information if authenticated -->
-        <div sec:authorize="isAuthenticated()" class="relative flex shrink-0 overflow-hidden rounded-full h-9 w-9">
-        <span class="flex h-full w-full items-center justify-center rounded-full bg-muted"
-              th:text="${#strings.substring(#authentication.name, 0, 2)}">U</span>
-            <span class="sr-only">User Menu</span>
-        </div>
 
+        <div sec:authorize="isAuthenticated()" class="relative">
+            <div id="profileButton" class="relative flex shrink-0 overflow-hidden rounded-full h-9 w-9 cursor-pointer">
+            <span class="flex h-full w-full items-center justify-center rounded-full bg-gray-200"
+                  th:text="${#strings.substring(#authentication.name, 0, 2)}">U</span>
+                <span class="sr-only">User Menu</span>
+            </div>
+
+            <!-- Dropdown Menu -->
+            <div id="dropdownMenu" class="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-50 hidden">
+                <a th:href="@{/user/profile}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Profile</a>
+                <form th:action="@{user/logout}" method="post" class="inline w-full">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    <button type="submit" class="block w-full text-left px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100">
+                        Log Out
+                    </button>
+                </form>
+            </div>
+        </div>
 
         <!-- Display Log In link if not authenticated -->
         <a sec:authorize="isAnonymous()" th:href="@{/user/login}" class="text-sm font-medium text-gray-500 hover:text-gray-700">
             Log In
         </a>
     </div>
+
+    <script>
+        // JavaScript for toggling the dropdown menu
+        document.addEventListener('DOMContentLoaded', function () {
+            const profileButton = document.getElementById('profileButton');
+            const dropdownMenu = document.getElementById('dropdownMenu');
+
+            profileButton.addEventListener('click', function () {
+                dropdownMenu.classList.toggle('hidden');
+            });
+
+            // Close the dropdown if clicked outside
+            document.addEventListener('click', function (event) {
+                if (!profileButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                    dropdownMenu.classList.add('hidden');
+                }
+            });
+        });
+    </script>
 
 </header>
 
