@@ -59,18 +59,18 @@
     <div th:insert="~{fragments/footer :: footer}" class="w-full"></div>
 
     <!-- Login Modal -->
-    <div id="loginModal" class="flex items-center justify-center bg-gray-800 bg-opacity-50 hidden">
+    <div id="loginModal" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden">
         <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
             <div th:insert="~{fragments/login-modal :: loginModalFragment}"></div>
-<!--        </div>-->
-<!--    </div>-->
+        </div>
+    </div>
 
     <!-- Signup Modal -->
-<!--    <div id="signupModal" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden">-->
-<!--        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">-->
+    <div id="signupModal" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden">
+        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
             <div th:insert="~{fragments/signup-modal :: signupModalFragment}"></div>
-<!--        </div>-->
-<!--    </div>-->
+        </div>
+    </div>
 
 </div>
 </body>
