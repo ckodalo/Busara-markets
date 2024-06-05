@@ -1,6 +1,6 @@
-<div th:fragment="predictModalFragment">
+<div th:fragment="predictModalFragment" id="predictionModal" >
     <!-- Modal -->
-    <div id="predictionModal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+    <div class="fixed inset-0 flex items-center justify-center z-50 hidden">
         <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
             <h2 class="text-xl font-semibold text-gray-800 mb-4">Enter Number of Shares</h2>
             <div id="modalSecurity" class="mb-4"></div>
@@ -27,14 +27,18 @@
 
     <!-- Overlay -->
     <div id="modalOverlay" class="fixed inset-0 bg-gray-800 bg-opacity-50 hidden"></div>
-</div>
 
-<script>
+    <script>
     function closePredictModal() {
+
         document.getElementById('predictionModal').classList.add('hidden');
         document.getElementById('modalOverlay').classList.add('hidden');
     }
 </script>
+
+</div>
+
+
 
 
 
