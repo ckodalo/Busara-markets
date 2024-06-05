@@ -30,6 +30,10 @@ public class Market {
     @OneToMany(mappedBy = "market", fetch = FetchType.EAGER, cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Security> securities;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public Market (String title, String description, List<Security> securities, String marketType, double liquidity) {
 
         this.title = title;

@@ -2,8 +2,14 @@ package com.predictions.predictions.controllers;
 import com.predictions.predictions.models.Market;
 import com.predictions.predictions.models.Prediction;
 import com.predictions.predictions.models.Security;
+
+import com.predictions.predictions.services.UserService;
 import com.predictions.predictions.services.MarketService;
 import com.predictions.predictions.services.SecurityService;
+import com.predictions.predictions.services.UserService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -19,10 +25,16 @@ public class MarketController {
 
     private final SecurityService securityService;
 
-    public MarketController(MarketService marketService, SecurityService securityService) {
+    private  final UserService userService;
+
+    //private final
+
+    public MarketController(MarketService marketService, SecurityService securityService, UserService userService) {
         this.marketService = marketService;
 
         this.securityService = securityService;
+
+        this.userService = userService;
     }
 
    @GetMapping()
@@ -41,7 +53,6 @@ public class MarketController {
 
        model.addAttribute("content", "markets");
        model.addAttribute("marketsList", marketsList);
-//        model.addAttribute("security", new Security());
 
        return "layouts/app-layout";
     }
@@ -65,20 +76,18 @@ public class MarketController {
         List<Market> marketsList = marketService.getMarkets();
 
         model.addAttribute("content", "create");
-//        model.addAttribute("marketsList", marketsList);
+//        model.addAttribute("marketsList", marketsList)
 
         return "layouts/app-layout";
     }
     @PostMapping("/create")
-    public String createMarket(@ModelAttribute Market market,  @RequestParam("security") String[] securities) {
-
-        System.out.println("entered create action");
-
-        System.out.println("entire market: " + market);
-
-      System.out.println("just the market id : " + market.getId());
+    public String createMarket(@AuthenticationPrincipal User userDetails, @ModelAttribute Market market, @RequestParam("security") String[] securities) {
 
        List<Security> securitiesList = new ArrayList<>();
+
+       String username = userDetails.getUsername();
+
+       market.setUser(userService.findByUsername(username));
 
        marketService.createMarket(market);
 
@@ -111,17 +120,4 @@ public class MarketController {
         return "redirect:/markets";
     }
 
-//    @PostMapping("predict")
-//    public String predict(@ModelAttribute Security security, @PathVariable String prediction) {
-//
-//            Prediction newPrediction = new Prediction();
-//
-//            newPrediction.setValue(prediction);
-//
-//            newPrediction.setSecurity(security);
-//
-//        marketService.makePrediction(newPrediction);
-//
-//        return "redirect:/markets";
-//    }
 }
