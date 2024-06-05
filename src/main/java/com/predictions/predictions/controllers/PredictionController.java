@@ -7,6 +7,9 @@ import com.predictions.predictions.models.dto.PredictionForm;
 import com.predictions.predictions.services.MarketService;
 import com.predictions.predictions.services.PredictionService;
 import com.predictions.predictions.services.SecurityService;
+import com.predictions.predictions.services.UserService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,37 +24,39 @@ public class PredictionController {
 
     private final SecurityService securityService;
 
+    private final UserService userService;
+
     private  final MarketService marketService;
 
-    public PredictionController (PredictionService predictionService, SecurityService securityService, MarketService marketService) {
+    public PredictionController (PredictionService predictionService, SecurityService securityService, MarketService marketService, UserService userService) {
 
         this.predictionService = predictionService;
 
         this.securityService = securityService;
 
         this.marketService = marketService;
+
+        this.userService = userService;
     }
 
     //this is same as buying share,, what about selling share
 
-    // this method should take nshares
     @PostMapping("/predict")
-    public String predict(@ModelAttribute Security security, @RequestParam String prediction, @RequestParam Long marketId, @RequestParam int nShares ) {
+    public String predict(@AuthenticationPrincipal User userDetails, @ModelAttribute Security security, @RequestParam String prediction, @RequestParam Long marketId, @RequestParam int nShares ) {
 
         Long securityId = security.getId();
-
-        String securityName = security.getName();
-
-        System.out.println("nshares in controller is: " + nShares);
-        System.out.println("security id in controller is: " + securityId);
-        System.out.println("security name in controller is: " + securityName);
-        System.out.println("market id in the given security is: " + marketId);
 
         Prediction newPrediction = new Prediction();
 
         newPrediction.setValue(prediction);
 
+        newPrediction.setNShares(nShares);
+
         newPrediction.setSecurity(security);
+
+        String username = userDetails.getUsername();
+
+        newPrediction.setUser(userService.findByUsername(username));
 
         predictionService.makePrediction(newPrediction);
 
