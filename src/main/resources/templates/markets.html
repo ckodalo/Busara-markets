@@ -31,12 +31,12 @@
                                         <input type="hidden" class="securityId" name="id" th:value="${security.id}">
                                         <input type="hidden" class="securityName" name="name" th:value="${security.name}">
                                         <input type="hidden" class="marketId" name="marketId" th:value="${market.id}">
-                                        <input type="hidden" class="predictionInput" name="prediction">
+<!--                                        <input type="hidden" class="predictionInput" name="prediction">-->
                                         <button type="button"
                                                 th:text="'Bet ' + ${security.name}"
                                                 class="text-white font-semibold rounded-md w-full py-2 text-xs"
-                                                th:classappend="${security.name == 'yes'} ? ' bg-red-500 hover:bg-red-600 focus:bg-red-600' : ' bg-green-500 hover:bg-green-600 focus:bg-green-600'"
-                                                onclick="openModal('yes', event)">
+                                                th:classappend="${security.name == 'yes'} ? ' bg-green-500 hover:bg-green-600 focus:bg-green-600' : ' bg-red-500 hover:bg-red-600 focus:bg-red-600'"
+                                                onclick="openModal('${security.name}', event)">
                                         </button>
                                     </form>
                                 </div>
@@ -53,9 +53,9 @@
                                         <input type="hidden" class="securityId" name="id" th:value="${security.id}">
                                         <input type="hidden" class="securityName" name="name" th:value="${security.name}">
                                         <input type="hidden" class="marketId" name="marketId" th:value="${market.id}">
-                                        <input type="hidden" class="predictionInput" name="prediction">
-                                        <button type="button" onclick="openModal('yes', event)" class="px-2 py-1 bg-green-500 text-white font-semibold rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600 text-xs">Yes</button>
-                                        <button type="button" onclick="openModal('no', event)" class="px-2 py-1 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600 text-xs">No</button>
+<!--                                        <input type="hidden" class="predictionInput" name="prediction">-->
+                                        <button type="button" onclick="openModal('YES', event)" class="px-2 py-1 bg-green-500 text-white font-semibold rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600 text-xs">Yes</button>
+                                        <button type="button" onclick="openModal('NO', event)" class="px-2 py-1 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600 text-xs">No</button>
                                     </form>
                                 </div>
                             </div>
@@ -75,20 +75,20 @@
 </div>
 
 <script>
-    function openModal(value, event) {
+    function openModal(action, event) {
         event.preventDefault();
 
         const form = event.target.closest('form');
-        const securityId = form.querySelector('.securityId') ? form.querySelector('.securityId').value : '';
-        const securityName = form.querySelector('.securityName') ? form.querySelector('.securityName').value : '';
+        const securityId = form.querySelector('.securityId').value;
+        const securityName = form.querySelector('.securityName').value;
         const marketId = form.querySelector('.marketId').value;
 
-        // Set the values in the modal
+        // Set the values in the predictionModal
         document.getElementById('modalSecurityId').value = securityId;
         document.getElementById('modalSecurityName').value = securityName;
         document.getElementById('modalSecurity').textContent = securityName ? "Security: " + securityName : "Market: Poll";
         document.getElementById('modalMarketId').value = marketId;
-        document.getElementById('modalPredictionValue').value = value;
+        document.getElementById('action').value = action;
 
         // Show the modal and overlay
         document.getElementById('predictionModal').classList.remove('hidden');

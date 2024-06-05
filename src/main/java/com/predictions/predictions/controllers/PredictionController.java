@@ -1,5 +1,6 @@
 package com.predictions.predictions.controllers;
 
+import com.predictions.predictions.enums.TradeAction;
 import com.predictions.predictions.models.Market;
 import com.predictions.predictions.models.Prediction;
 import com.predictions.predictions.models.Security;
@@ -42,13 +43,22 @@ public class PredictionController {
     //this is same as buying share,, what about selling share
 
     @PostMapping("/predict")
-    public String predict(@AuthenticationPrincipal User userDetails, @ModelAttribute Security security, @RequestParam String prediction, @RequestParam Long marketId, @RequestParam int nShares ) {
+    public String predict(@AuthenticationPrincipal User userDetails, @ModelAttribute Security security, @RequestParam Long marketId, @RequestParam int nShares, @RequestParam String action ) {
+
+        System.out.println("the action received is " + action);
+
+        if (action.equals("NO")) {
+
+           nShares = -nShares;
+        }
+
+        System.out.println("the adjusted nShares is " + nShares);
 
         Long securityId = security.getId();
 
         Prediction newPrediction = new Prediction();
 
-        newPrediction.setValue(prediction);
+        newPrediction.setAction(TradeAction.valueOf(action));
 
         newPrediction.setNShares(nShares);
 

@@ -40,7 +40,7 @@ public class SecurityService {
             System.out.println("we are not isnde the predicins loop");
             System.out.println("prediction id: " + prediction.getId());
              predictionsCount++;
-            if (prediction.getValue().equals("yes")) {
+            if (prediction.getAction().toString().equals("YES")) {
 
                 yesPredictions++;
             };
