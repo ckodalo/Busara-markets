@@ -53,7 +53,7 @@ public class Security {
 
         for (Prediction prediction : predictions) {
             predictionsCount++;
-            if (prediction.getValue().equals("Yes")) {
+            if (prediction.getAction().toString().equals("YES")) {
 
                 yesPredictions++;
             };

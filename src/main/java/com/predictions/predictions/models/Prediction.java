@@ -1,10 +1,8 @@
 package com.predictions.predictions.models;
 
+import com.predictions.predictions.enums.TradeAction;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -20,7 +18,7 @@ public class Prediction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String value;
+//    private String value;
 
     private int nShares;
 
@@ -34,4 +32,15 @@ public class Prediction {
 
     @CreationTimestamp
     private LocalDateTime timestamp;
+
+    private TradeAction action;
+
+
+    @Override
+    public String toString() {
+        return "Trade{" +
+                "action=" + action +
+                '}';
+    }
+
 }
