@@ -31,7 +31,6 @@
                                         <input type="hidden" class="securityId" name="id" th:value="${security.id}">
                                         <input type="hidden" class="securityName" name="name" th:value="${security.name}">
                                         <input type="hidden" class="marketId" name="marketId" th:value="${market.id}">
-<!--                                        <input type="hidden" class="predictionInput" name="prediction">-->
                                         <button type="button"
                                                 th:text="'Bet ' + ${security.name}"
                                                 class="text-white font-semibold rounded-md w-full py-2 text-xs"
@@ -53,7 +52,6 @@
                                         <input type="hidden" class="securityId" name="id" th:value="${security.id}">
                                         <input type="hidden" class="securityName" name="name" th:value="${security.name}">
                                         <input type="hidden" class="marketId" name="marketId" th:value="${market.id}">
-<!--                                        <input type="hidden" class="predictionInput" name="prediction">-->
                                         <button type="button" onclick="openModal('YES', event)" class="px-2 py-1 bg-green-500 text-white font-semibold rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600 text-xs">Yes</button>
                                         <button type="button" onclick="openModal('NO', event)" class="px-2 py-1 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600 text-xs">No</button>
                                     </form>
