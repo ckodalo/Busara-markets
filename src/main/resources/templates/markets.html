@@ -25,8 +25,11 @@
                         <div class="divide-y divide-gray-200 space-y-2 px-6 py-4">
                             <!-- Conditional rendering for Poll questions -->
                             <div th:if="${market.marketType == 'YesNo'}" class="flex flex-wrap justify-around p-4">
+                                <div th:each="security : ${market.securities}" th:if="${security.name == 'yes'}" class="w-full p-2">
+                                    <div class="text-sm text-gray-600" th:text="'Market Probability: ' + ${#numbers.formatDecimal(security.probability, 1, 0)} + '%'"></div>
+                                </div>
                                 <div th:each="security : ${market.securities}" class="w-1/2 md:w-1/4 p-2">
-                                    <div class="text-sm text-gray-600" th:text="'Probability: ' + ${#numbers.formatDecimal(security.probability, 1, 0)} + '%'"></div>
+<!--                                    <div class="text-sm text-gray-600" th:text="'Probability: ' + ${#numbers.formatDecimal(security.probability, 1, 0)} + '%'"></div>-->
                                     <form class="predictionForm flex justify-center">
                                         <input type="hidden" class="securityId" name="id" th:value="${security.id}">
                                         <input type="hidden" class="securityName" name="name" th:value="${security.name}">
