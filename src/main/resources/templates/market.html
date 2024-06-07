@@ -24,7 +24,7 @@
                                             th:text="'Bet ' + ${security.name}"
                                             class="text-white font-semibold rounded-md w-full py-2 text-xs"
                                             th:classappend="${security.name == 'yes'} ? ' bg-green-500 hover:bg-green-600 focus:bg-green-600' : ' bg-red-500 hover:bg-red-600 focus:bg-red-600'"
-                                            onclick="openModal('${security.name}', event)">
+                                            th:attr="onclick=|openModal('${#strings.toUpperCase(security.name)}', event)|">
                                     </button>
 
                                 </form>
