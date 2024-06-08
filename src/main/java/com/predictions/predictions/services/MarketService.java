@@ -1,5 +1,6 @@
 package com.predictions.predictions.services;
 
+import com.predictions.predictions.models.User;
 import org.springframework.stereotype.Service;
 import com.predictions.predictions.models.Market;
 import com.predictions.predictions.models.Security;
@@ -78,5 +79,10 @@ public class MarketService {
 
         marketRepository.save(targetMarket);
 
+    }
+
+    public List<Market> getMarketsByUser (User user) {
+
+        return marketRepository.findMarketsByUser(user);
     }
 }
