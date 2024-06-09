@@ -27,6 +27,7 @@ public class Market {
 
     private double liquidity = 100.0;
 
+    //need to determine what i did here
     @OneToMany(mappedBy = "market", fetch = FetchType.EAGER, cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Security> securities;
 

@@ -1,4 +1,6 @@
 package com.predictions.predictions.controllers;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.predictions.predictions.models.Market;
 import com.predictions.predictions.models.Prediction;
 import com.predictions.predictions.models.Security;
@@ -28,9 +30,11 @@ public class MarketController {
 
     private final PredictionService predictionService;
 
+    private final ObjectMapper objectMapper;
+
     //private final
 
-    public MarketController(MarketService marketService, SecurityService securityService, UserService userService, PredictionService predictionService) {
+    public MarketController(MarketService marketService, SecurityService securityService, UserService userService, PredictionService predictionService, ObjectMapper objectMapper) {
         this.marketService = marketService;
 
         this.securityService = securityService;
@@ -38,6 +42,8 @@ public class MarketController {
         this.userService = userService;
 
         this.predictionService = predictionService;
+
+        this.objectMapper = objectMapper;
     }
 
    @GetMapping()
@@ -61,7 +67,7 @@ public class MarketController {
     }
 
     @GetMapping("{marketId}")
-    public String getMarket(Model model, @PathVariable Long marketId) {
+    public String getMarket(Model model, @PathVariable Long marketId) throws Exception {
 
         Market targetMarket = marketService.getMarketById(marketId);
 
@@ -69,8 +75,12 @@ public class MarketController {
 
         System.out.println(chartData);
 
+        String chartDataJson = objectMapper.writeValueAsString(chartData);
 
-        model.addAttribute("chartData", chartData);
+        model.addAttribute("chartDataJson", chartDataJson);
+
+
+//        model.addAttribute("chartData", chartData);
 
 
 
