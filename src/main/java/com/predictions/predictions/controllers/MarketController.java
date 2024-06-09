@@ -3,9 +3,8 @@ import com.predictions.predictions.models.Market;
 import com.predictions.predictions.models.Prediction;
 import com.predictions.predictions.models.Security;
 
-import com.predictions.predictions.services.UserService;
-import com.predictions.predictions.services.MarketService;
-import com.predictions.predictions.services.SecurityService;
+import com.predictions.predictions.models.dto.PredictionDetails;
+import com.predictions.predictions.services.*;
 import com.predictions.predictions.services.UserService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
@@ -27,14 +26,18 @@ public class MarketController {
 
     private  final UserService userService;
 
+    private final PredictionService predictionService;
+
     //private final
 
-    public MarketController(MarketService marketService, SecurityService securityService, UserService userService) {
+    public MarketController(MarketService marketService, SecurityService securityService, UserService userService, PredictionService predictionService) {
         this.marketService = marketService;
 
         this.securityService = securityService;
 
         this.userService = userService;
+
+        this.predictionService = predictionService;
     }
 
    @GetMapping()
@@ -61,6 +64,15 @@ public class MarketController {
     public String getMarket(Model model, @PathVariable Long marketId) {
 
         Market targetMarket = marketService.getMarketById(marketId);
+
+        List<PredictionDetails> chartData = predictionService.getPredictionsByMarket(marketId);
+
+        System.out.println(chartData);
+
+
+        model.addAttribute("chartData", chartData);
+
+
 
         model.addAttribute("content", "market");
 

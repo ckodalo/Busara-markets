@@ -35,6 +35,9 @@ public class Prediction {
 
     private TradeAction action;
 
+    //probability snapshot
+    private double probability;
+
 
     @Override
     public String toString() {

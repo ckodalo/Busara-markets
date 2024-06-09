@@ -7,6 +7,7 @@ import com.predictions.predictions.repositories.SecurityRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -27,6 +28,19 @@ public class SecurityService {
     public void saveSecurity(Security security) {
 
         securityRepository.save(security);
+    }
+
+    public Security getSecurityById (Long securityId) {
+
+        Optional<Security> possibleSecurity = securityRepository.findById(securityId);
+
+        if (possibleSecurity.isPresent()) {
+            return possibleSecurity.get();
+        }
+        else {
+
+            throw new RuntimeException("there is no security with the provided id in the db");
+        }
     }
 
     public int getProbability(Long securityId) {

@@ -4,7 +4,6 @@ import com.predictions.predictions.enums.TradeAction;
 import com.predictions.predictions.models.Market;
 import com.predictions.predictions.models.Prediction;
 import com.predictions.predictions.models.Security;
-import com.predictions.predictions.models.dto.PredictionForm;
 import com.predictions.predictions.services.MarketService;
 import com.predictions.predictions.services.PredictionService;
 import com.predictions.predictions.services.SecurityService;
@@ -68,9 +67,15 @@ public class PredictionController {
 
         newPrediction.setUser(userService.findByUsername(username));
 
-        predictionService.makePrediction(newPrediction);
+//        newPrediction.setProbability(security.getProbability());
 
         marketService.doThings(marketId, securityId, nShares);
+
+        double prob = securityService.getSecurityById(securityId).getProbability();
+
+        newPrediction.setProbability(prob);
+
+        predictionService.makePrediction(newPrediction);
 
         return "redirect:/markets";
     }
