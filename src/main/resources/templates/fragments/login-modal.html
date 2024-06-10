@@ -11,17 +11,6 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" th:href="@{/css/styles.build.tailwind.css}">
     <!-- Scripts -->
-
-    <script>
-          function closeLoginModal() {
-            document.getElementById('loginModal').classList.add('hidden');
-        }
-
-        function openSignupModal() {
-            document.getElementById('signupModal').classList.remove('hidden');
-        }
-
-    </script>
 </head>
 <body class="font-sans antialiased">
 <div th:fragment="loginModalFragment" id="loginModal">
