@@ -14,7 +14,7 @@
             <div th:each="market : ${marketsList}" class="market-card bg-white shadow-md rounded-lg overflow-hidden mb-4">
                 <!-- Market Card -->
                 <!-- Wrap the card with a link -->
-                <a th:href="@{'markets/' + ${market.id}}" class="block">
+                <a th:href="@{|/markets/${market.id}?marketType=${market.marketType}|}" class="block">
                     <div class="w-full divide-y divide-gray-200">
                         <div class="bg-gray-50">
                             <div class="px-6 py-3 flex justify-between items-center">
@@ -25,7 +25,7 @@
                         <div class="divide-y divide-gray-200 space-y-2 px-6 py-4">
                             <!-- Conditional rendering for Poll questions -->
                             <div th:if="${market.marketType == 'YesNo'}" class="flex flex-wrap justify-around p-4">
-                                <div th:each="security : ${market.securities}" th:if="${security.name == 'yes'}" class="w-full p-2">
+                                <div th:each="security : ${market.securities}" th:if="${security.name == 'YES'}" class="w-full p-2">
                                     <div class="text-sm text-gray-600" th:text="'Market Probability: ' + ${#numbers.formatDecimal(security.probability, 1, 0)} + '%'"></div>
                                 </div>
                                 <div th:each="security : ${market.securities}" class="w-1/2 md:w-1/4 p-2">
@@ -37,7 +37,7 @@
                                         <button type="button"
                                                 th:text="'Bet ' + ${security.name}"
                                                 class="text-white font-semibold rounded-md w-full py-2 text-xs"
-                                                th:classappend="${security.name == 'yes'} ? ' bg-green-500 hover:bg-green-600 focus:bg-green-600' : ' bg-red-500 hover:bg-red-600 focus:bg-red-600'"
+                                                th:classappend="${security.name == 'YES'} ? ' bg-green-500 hover:bg-green-600 focus:bg-green-600' : ' bg-red-500 hover:bg-red-600 focus:bg-red-600'"
                                                 th:attr="onclick=|openModal('${#strings.toUpperCase(security.name)}', event)|">
                                         </button>
                                     </form>

@@ -66,7 +66,7 @@ public class PredictionService {
          return result;
     }
 
-    public List<PredictionDetails> getPredictionsByMarket (Long marketId) {
+    public List<PredictionDetails> getPredictionsByMarket (Long marketId, String marketType) {
 
        List<PredictionDetails> result = new ArrayList<>();
 
@@ -78,8 +78,12 @@ public class PredictionService {
                 .filter(prediction -> prediction.getSecurity().getMarket().getId().equals(marketId))
                 .toList();
 
+       List<Prediction> predictionsByMarketType = predictions.stream()
+               .filter(prediction -> prediction.getSecurity().getMarket().getMarketType().equals(marketType))
+               .toList();
 
-       for (Prediction prediction : predictions) {
+
+       for (Prediction prediction : predictionsByMarketType) {
 
            Security security = prediction.getSecurity();
 

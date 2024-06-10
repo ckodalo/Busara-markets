@@ -11,28 +11,32 @@
                             <span class="text-xs font-medium text-gray-500 uppercase tracking-wider" th:text="${market.marketType}">Market Type</span>
                         </div>
                     </div>
-                    <div id="chartData" th:utext="${chartDataJson}" style="display:none;"></div>
-                        <div id="chart">
 
-                            <script th:inline="javascript" type="module" th:src="@{/js/chart.js}"></script>
-
-                        </div>
                     <div class="divide-y divide-gray-200 space-y-2 px-6 py-4">
                         <!-- Loop through securities and generate buttons -->
                         <div th:if="${market.marketType == 'YesNo'}" class="flex flex-wrap justify-around p-4">
-                            <div th:each="security : ${market.securities}" th:if="${security.name == 'yes'}" class="w-full p-2">
+
+                            <div id="chartData2" th:utext="${chartDataJson2}" style="display:none;"></div>
+                            <div id="chart2">
+
+                                <script th:inline="javascript" type="module" th:src="@{/js/chart2.js}"></script>
+
+                            </div>
+
+                            <div th:each="security : ${market.securities}" th:if="${security.name == 'YES'}" class="w-full p-2">
                                 <div class="text-sm text-gray-600" th:text="'Market Probability: ' + ${#numbers.formatDecimal(security.probability, 1, 0)} + '%'"></div>
                             </div>
                             <div th:each="security : ${market.securities}" class="w-full md:w-1/2 lg:w-1/3 p-2">
 <!--                                <div class="text-sm text-gray-600" th:text="'Probability: ' + ${#numbers.formatDecimal(security.probability, 1, 0)} + '%'"></div>-->
                                 <form class="predictionForm flex justify-center">
+<!--                                    <input type="hidden" name="marketType" id="marketType" th:value="YesNo">-->
                                     <input type="hidden" class="securityId" name="id" th:value="${security.id}">
                                     <input type="hidden" class="securityName" name="name" th:value="${security.name}">
                                     <input type="hidden" class="marketId" name="marketId" th:value="${market.id}">
                                     <button type="button"
                                             th:text="'Bet ' + ${security.name}"
                                             class="text-white font-semibold rounded-md w-full py-2 text-xs"
-                                            th:classappend="${security.name == 'yes'} ? ' bg-green-500 hover:bg-green-600 focus:bg-green-600' : ' bg-red-500 hover:bg-red-600 focus:bg-red-600'"
+                                            th:classappend="${security.name == 'YES'} ? ' bg-green-500 hover:bg-green-600 focus:bg-green-600' : ' bg-red-500 hover:bg-red-600 focus:bg-red-600'"
                                             th:attr="onclick=|openModal('${#strings.toUpperCase(security.name)}', event)|">
                                     </button>
 
@@ -42,12 +46,19 @@
 
                         <!-- Conditional rendering for Multiple Choice and Yes/No -->
                         <div th:if="${market.marketType != 'YesNo'}">
+                            <div id="chartData" th:utext="${chartDataJson}" style="display:none;"></div>
+                            <div id="chart">
+
+                                <script th:inline="javascript" type="module" th:src="@{/js/chart.js}"></script>
+
+                            </div>
                             <!-- Loop through securities and generate buttons -->
                             <div th:each="security : ${market.securities}" class="flex items-center justify-between space-y-2">
                                 <div class="text-sm text-gray-900" th:text="${security.name}">Security</div>
                                 <div class="text-sm text-gray-600" th:text="'Probability: ' + ${#numbers.formatDecimal(security.probability, 1, 0)} + '%'"></div>
                                 <!-- Button Group -->
                                 <form class="predictionForm flex items-center space-x-2">
+<!--                                    <input type="hidden" name="marketType" id="marketType2" th:value="MultipleChoice">-->
                                     <input type="hidden" class="securityId" name="id" th:value="${security.id}">
                                     <input type="hidden" class="securityName" name="name" th:value="${security.name}">
                                     <input type="hidden" class="marketId" name="marketId" th:value="${market.id}">

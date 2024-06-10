@@ -67,22 +67,34 @@ public class MarketController {
     }
 
     @GetMapping("{marketId}")
-    public String getMarket(Model model, @PathVariable Long marketId) throws Exception {
+    public String getMarket(Model model, @PathVariable Long marketId, @RequestParam("marketType") String marketType) throws Exception {
 
         Market targetMarket = marketService.getMarketById(marketId);
 
-        List<PredictionDetails> chartData = predictionService.getPredictionsByMarket(marketId);
+        if (marketType.equals("YesNo")) {
 
-        System.out.println(chartData);
+             List<PredictionDetails> YesNoPredictionDetails = predictionService.getPredictionsByMarket(marketId, marketType);
 
-        String chartDataJson = objectMapper.writeValueAsString(chartData);
+            List<PredictionDetails> YesPredictionDetails = YesNoPredictionDetails.stream()
+                    .filter(prediction -> prediction.getSecurityName().equals("YES"))
+                    .toList();
 
-        model.addAttribute("chartDataJson", chartDataJson);
+             String chartDataJson2 = objectMapper.writeValueAsString(YesPredictionDetails);
 
+             model.addAttribute("chartDataJson2", chartDataJson2);
+        }
 
-//        model.addAttribute("chartData", chartData);
+        else {
 
+            List<PredictionDetails> chartData = predictionService.getPredictionsByMarket(marketId, marketType);
 
+            System.out.println(chartData);
+
+            String chartDataJson = objectMapper.writeValueAsString(chartData);
+
+            model.addAttribute("chartDataJson", chartDataJson);
+
+        }
 
         model.addAttribute("content", "market");
 
