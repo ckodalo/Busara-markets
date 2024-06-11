@@ -7,21 +7,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
-
-    @Autowired
-    private UserDetailsService userDetailsService;
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
@@ -30,7 +23,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/home", "/markets", "/user/signup", "/css/**", "/js/**").permitAll()
+                        .requestMatchers("/", "/home", "/markets", "/predict", "/user/signup", "/css/**", "/js/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
@@ -38,23 +31,24 @@ public class WebSecurityConfig {
                         .permitAll()
                 )
                 .logout((logout) -> logout
-                        .deleteCookies("JSESSIONID")
-                        .logoutUrl("/user/logout")
-                        .logoutSuccessUrl("/markets")
-                        .invalidateHttpSession(true)
-                        .permitAll()
-                );
+//                        .logoutUrl("/user/logout")
+                                .permitAll()
+                                .deleteCookies("JSESSIONID")
+//                        .logoutSuccessUrl("/markets")
+//                        .invalidateHttpSession(true)
 
+                );
 
         return http.build();
     }
 
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
+    }
 
-    // Configure password encoder
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }
 

@@ -91,8 +91,8 @@
             <!-- Dropdown Menu -->
             <div id="dropdownMenu" class="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-50 hidden">
                 <a th:href="@{/user/profile}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Profile</a>
-                <form th:action="@{user/logout}" method="post" class="inline w-full">
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <form th:action="@{/logout}" method="post" class="inline w-full">
+<!--                   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>-->
                     <button type="submit" class="block w-full text-left px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100">
                         Log Out
                     </button>
