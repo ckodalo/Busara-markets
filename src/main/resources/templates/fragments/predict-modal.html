@@ -9,6 +9,7 @@
                 <p id="modalMarket" class="mt-1 block text-sm text-gray-900"></p>
             </div>
             <form id="modalForm" th:action="@{/predict}" method="post">
+<!--                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
                 <input type="hidden" name="id" id="modalSecurityId">
                 <input type="hidden" name="marketId" id="modalMarketId">
                 <input type="hidden" name="name" id="modalSecurityName">
@@ -27,14 +28,6 @@
 
     <!-- Overlay -->
     <div id="modalOverlay" class="fixed inset-0 bg-gray-800 bg-opacity-50 hidden"></div>
-
-    <script>
-    function closePredictModal() {
-
-        document.getElementById('predictionModal').classList.add('hidden');
-        document.getElementById('modalOverlay').classList.add('hidden');
-    }
-</script>
 
 </div>
 

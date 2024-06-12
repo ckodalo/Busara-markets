@@ -22,3 +22,9 @@ function closeModal() {
     document.getElementById('predictionModal').classList.add('hidden');
     document.getElementById('modalOverlay').classList.add('hidden');
 }
+
+   function closePredictModal() {
+
+        document.getElementById('predictionModal').classList.add('hidden');
+        document.getElementById('modalOverlay').classList.add('hidden');
+    }
