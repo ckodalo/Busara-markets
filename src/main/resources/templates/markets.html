@@ -90,7 +90,7 @@
     </div>
 
     <!-- Include the modal fragment -->
-    <div th:insert="~{fragments/predict-modal :: predictModalFragment}"></div>
+    <div sec:authorize="isAuthenticated()"  th:insert="~{fragments/predict-modal :: predictModalFragment}"></div>
 </div>
 
 
