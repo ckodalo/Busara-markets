@@ -53,24 +53,27 @@
 
     <script th:src="@{/js/predictModal.js}"></script>
 
+    <script th:src="@{/js/create.js}"></script>
+
 </head>
 <body class="font-sans antialiased">
 <div class="flex flex-col min-h-screen bg-gray-100">
     <!-- Navigation -->
-    <div th:insert="~{fragments/navigation :: navigation}" class="w-full"></div>
 
     <!-- Main Content Area -->
-    <div class="flex flex-1">
+<!--    <div class="flex flex-1">-->
         <!-- Sidebar -->
-        <div th:insert="~{fragments/sidebar :: sidebar}" class="w-64 text-white p-8"></div>
+<!--        <div th:insert="~{fragments/sidebar :: sidebar}" class="w-64 text-white p-8"></div>-->
 
         <!-- Main Content -->
         <div class="flex-1 p-8">
             <main>
+                <div th:insert="~{fragments/navigation :: navigation}" class="w-full"></div>
+
                 <div th:replace="~{${content}}"></div>
             </main>
         </div>
-    </div>
+<!--    </div>-->
 
     <!-- Footer -->
     <div th:insert="~{fragments/footer :: footer}" class="w-full"></div>
