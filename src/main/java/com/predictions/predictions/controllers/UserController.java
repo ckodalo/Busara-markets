@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -35,9 +36,13 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    private String login () {
+    private String login (RedirectAttributes redirectAttributes) {
 
-        return "fragments/login-modal";
+//        model.addAttribute("fragmentContent", "fragments/login-modal");
+
+        redirectAttributes.addFlashAttribute("showLoginModal", "true");
+
+        return "redirect:/markets";
 
     }
 
