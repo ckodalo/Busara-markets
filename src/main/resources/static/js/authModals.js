@@ -1,4 +1,5 @@
-     function openLoginModal() {
+//document.addEventListener('DOMContentLoaded', function() {
+        function openLoginModal() {
             document.getElementById('loginModal').classList.remove('hidden');
         }
 
@@ -18,3 +19,4 @@
             document.getElementById('signupModal').classList.add('hidden');
             document.getElementById('loginModal').classList.remove('hidden');
         }
+//    })

@@ -69,8 +69,11 @@ public class UserController {
 //    }
 
     @GetMapping("signup")
-    private String signup () {
-        return "fragments/signup-modal";
+    private String signup (RedirectAttributes redirectAttributes) {
+
+        redirectAttributes.addFlashAttribute("showSignUpModal", "true");
+
+        return "redirect:/markets";
     }
 
     @PostMapping("signup")

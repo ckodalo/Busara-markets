@@ -11,14 +11,17 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" th:href="@{/css/styles.build.tailwind.css}">
     <!-- Scripts -->
+
+    <script th:src="@{/js/authModals.js}"></script>
+
 </head>
 <body class="font-sans antialiased">
-<div th:fragment="loginModalFragment" id="loginModal">
+<div th:fragment="loginModalFragment" id="loginModal" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
     <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
 <!--<div th:fragment="loginModalFragment">-->
     <div class="flex justify-between items-center pb-4 border-b border-gray-200">
         <h2 class="text-lg font-semibold text-gray-700">Log In</h2>
-        <button class="text-gray-500 hover:text-gray-700" onclick="closeLoginModal()">✖</button>
+        <button class="text-gray-500 hover:text-gray-700" th:onclick="closeLoginModal()">✖</button>
     </div>
 
     <form th:action="@{/user/login}" method="post" class="mt-4">

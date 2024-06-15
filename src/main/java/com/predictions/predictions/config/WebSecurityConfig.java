@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,6 +30,7 @@ public class WebSecurityConfig {
                 )
                 .formLogin((form) -> form
                         .loginPage("/user/login")
+//                        .defaultSuccessUrl("/markets", true)
                         .permitAll()
 
                 )
@@ -38,6 +40,10 @@ public class WebSecurityConfig {
                                 .deleteCookies("JSESSIONID")
 //                        .logoutSuccessUrl("/markets")
 //                        .invalidateHttpSession(true)
+
+                )
+                .sessionManagement((sessionManagement) -> sessionManagement
+                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
 
                 );
 //                .csrf(AbstractHttpConfigurer::disable
