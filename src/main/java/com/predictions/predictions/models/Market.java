@@ -31,6 +31,9 @@ public class Market {
     @OneToMany(mappedBy = "market", fetch = FetchType.EAGER, cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Security> securities;
 
+    @OneToMany(mappedBy = "market", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

@@ -1,6 +1,7 @@
 package com.predictions.predictions.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.predictions.predictions.models.Comment;
 import com.predictions.predictions.models.Market;
 import com.predictions.predictions.models.Prediction;
 import com.predictions.predictions.models.Security;
@@ -30,11 +31,13 @@ public class MarketController {
 
     private final PredictionService predictionService;
 
+    private final CommentService commentService;
+
     private final ObjectMapper objectMapper;
 
     //private final
 
-    public MarketController(MarketService marketService, SecurityService securityService, UserService userService, PredictionService predictionService, ObjectMapper objectMapper) {
+    public MarketController(MarketService marketService, SecurityService securityService, UserService userService, PredictionService predictionService, CommentService commentService, ObjectMapper objectMapper) {
         this.marketService = marketService;
 
         this.securityService = securityService;
@@ -42,6 +45,8 @@ public class MarketController {
         this.userService = userService;
 
         this.predictionService = predictionService;
+
+        this.commentService = commentService;
 
         this.objectMapper = objectMapper;
     }
@@ -95,6 +100,17 @@ public class MarketController {
             model.addAttribute("chartDataJson", chartDataJson);
 
         }
+
+       List<Comment> comments = commentService.findCommentsByMarket(marketId);
+
+        for (Comment comment : comments) {
+
+            System.out.println("comment content is" + comment.getContent());
+
+            System.out.println("comment author us " + comment.getAuthor());
+        }
+
+        model.addAttribute("comments", comments);
 
         model.addAttribute("content", "market");
 
@@ -153,5 +169,6 @@ public class MarketController {
         marketService.deleteMarketById(marketId);
         return "redirect:/markets";
     }
+
 
 }
