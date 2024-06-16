@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // Declare the chart dimensions and margins.
             const width = 640;
-            const height = 400;
+            const height = 250;
             const margin = { top: 20, right: 20, bottom: 30, left: 40 };
 
             // Declare the x (horizontal position) scale.

@@ -27,9 +27,7 @@
                                 <div class="text-sm text-gray-600" th:text="'Market Probability: ' + ${#numbers.formatDecimal(security.probability, 1, 0)} + '%'"></div>
                             </div>
                             <div th:each="security : ${market.securities}" class="w-full md:w-1/2 lg:w-1/3 p-2">
-<!--                                <div class="text-sm text-gray-600" th:text="'Probability: ' + ${#numbers.formatDecimal(security.probability, 1, 0)} + '%'"></div>-->
                                 <form class="predictionForm flex justify-center">
-<!--                                    <input type="hidden" name="marketType" id="marketType" th:value="YesNo">-->
                                     <input type="hidden" class="securityId" name="id" th:value="${security.id}">
                                     <input type="hidden" class="securityName" name="name" th:value="${security.name}">
                                     <input type="hidden" class="marketId" name="marketId" th:value="${market.id}">
@@ -58,13 +56,11 @@
                                 <div class="text-sm text-gray-600" th:text="'Probability: ' + ${#numbers.formatDecimal(security.probability, 1, 0)} + '%'"></div>
                                 <!-- Button Group -->
                                 <form class="predictionForm flex items-center space-x-2">
-<!--                                    <input type="hidden" name="marketType" id="marketType2" th:value="MultipleChoice">-->
                                     <input type="hidden" class="securityId" name="id" th:value="${security.id}">
                                     <input type="hidden" class="securityName" name="name" th:value="${security.name}">
                                     <input type="hidden" class="marketId" name="marketId" th:value="${market.id}">
                                     <button type="button" onclick="openModal('YES', event)" class="px-2 py-1 bg-green-500 text-white font-semibold rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600 text-xs">Yes</button>
                                     <button type="button" onclick="openModal('NO', event)" class="px-2 py-1 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600 text-xs">No</button>
-
                                 </form>
                             </div>
                         </div>
@@ -79,14 +75,23 @@
         <h2 class="font-semibold text-lg text-gray-800">Comments</h2>
 
         <!-- Display existing comments -->
-        <div id="comments">
-            <div th:each="comment : ${comments}">
-                <p class="text-sm text-gray-600" th:text="${comment.author.username} + ': ' + ${comment.content}">Author: Comment content</p>
+        <div id="comments" class="space-y-4 mt-4">
+            <div th:each="comment : ${comments}" class="bg-white shadow rounded-lg p-4">
+                <div class="flex items-center mb-2">
+                    <div class="flex-shrink-0 h-8 w-8">
+                        <img class="h-8 w-8 rounded-full" src="/img/avatardefault_92824.png" alt="Avatar">
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm font-medium text-gray-900" th:text="${comment.author.username}">Author</p>
+                        <p class="text-xs text-gray-500" >Date</p>
+                    </div>
+                </div>
+                <div class="mt-2 text-sm text-gray-700" th:text="${comment.content}">Comment content</div>
             </div>
         </div>
 
         <!-- Comment Form -->
-        <form id="commentForm"  th:action="@{/comment/create}" th:object="${commentForm}" method="post" class="mt-4">
+        <form id="commentForm" th:action="@{/comment/create}" th:object="${commentForm}" method="post" class="mt-4">
             <input type="hidden" class="marketId" name="marketId" th:value="${market.id}">
             <div class="mb-4">
                 <textarea id="content" name="content" rows="4" class="w-full px-3 py-2 text-sm text-gray-700 border rounded-lg focus:outline-none" placeholder="Write your comment..."></textarea>
@@ -97,11 +102,7 @@
         </form>
     </div>
 
-
     <div th:insert="~{fragments/predict-modal :: predictModalFragment}"></div>
-
-
 </div>
-
 
 
