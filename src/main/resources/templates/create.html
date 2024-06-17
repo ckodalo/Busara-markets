@@ -1,6 +1,6 @@
 <div class="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
   <h1 class="font-semibold text-2xl text-gray-800 leading-tight">Create Market</h1>
-  <form th:action="@{/markets/create}" method="post" class="space-y-4">
+  <form sec:authorize="isAuthenticated()" th:action="@{/markets/create}" method="post" class="space-y-4">
     <!-- Title Field -->
     <div>
       <label for="title" class="block font-medium text-sm text-gray-700">Question:</label>
