@@ -5,6 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -24,5 +28,15 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "market_id")
     private Market market;
+
+    @Column(nullable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    @ManyToOne
+    @JoinColumn(name = "parent_id")
+    private Comment parent;
+
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<Comment> replies = new ArrayList<>();
 
 }

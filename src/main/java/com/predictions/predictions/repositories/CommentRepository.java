@@ -11,4 +11,6 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     public List<Comment> findCommentsByMarketId (Long marketId);
 
+    List<Comment> findByMarketIdOrderByCreatedAtAsc(Long marketId);
+
 }

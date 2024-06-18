@@ -39,15 +39,21 @@ public class CommentController {
 //    }
 
     @PostMapping("/create")
-    public String addComment(@AuthenticationPrincipal User userDetails, @ModelAttribute CommentForm commentForm) {
+    public String addComment(@AuthenticationPrincipal User userDetails, @ModelAttribute CommentForm commentForm) throws Exception {
 
         String username = userDetails.getUsername();
 
         Market market = marketService.findMarketById(commentForm.getMarketId());
 
-        com.predictions.predictions.models.User user = userService.findByUsername(username);
-
         Comment newComment = new Comment();
+
+        if (commentForm.getParentId() != null) {
+
+            Comment parent = commentService.findCommentById(commentForm.getParentId());
+            newComment.setParent(parent);
+        }
+
+        com.predictions.predictions.models.User user = userService.findByUsername(username);
 
         newComment.setAuthor(user);
 

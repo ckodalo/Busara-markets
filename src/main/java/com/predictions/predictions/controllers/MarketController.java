@@ -101,13 +101,18 @@ public class MarketController {
 
         }
 
-       List<Comment> comments = commentService.findCommentsByMarket(marketId);
+       List<Comment> comments = commentService.getCommentsForMarket(marketId);
 
         for (Comment comment : comments) {
 
             System.out.println("comment content is" + comment.getContent());
 
             System.out.println("comment author us " + comment.getAuthor());
+
+            for (Comment reply : comment.getReplies()) {
+
+                System.out.println("reply content is " + reply.getContent());
+            }
         }
 
         model.addAttribute("comments", comments);

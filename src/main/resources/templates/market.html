@@ -51,17 +51,35 @@
 
                             </div>
                             <!-- Loop through securities and generate buttons -->
-                            <div th:each="security : ${market.securities}" class="flex items-center justify-between space-y-2">
-                                <div class="text-sm text-gray-900" th:text="${security.name}">Security</div>
-                                <div class="text-sm text-gray-600" th:text="'Probability: ' + ${#numbers.formatDecimal(security.probability, 1, 0)} + '%'"></div>
-                                <!-- Button Group -->
-                                <form class="predictionForm flex items-center space-x-2">
-                                    <input type="hidden" class="securityId" name="id" th:value="${security.id}">
-                                    <input type="hidden" class="securityName" name="name" th:value="${security.name}">
-                                    <input type="hidden" class="marketId" name="marketId" th:value="${market.id}">
-                                    <button type="button" onclick="openModal('YES', event)" class="px-2 py-1 bg-green-500 text-white font-semibold rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600 text-xs">Yes</button>
-                                    <button type="button" onclick="openModal('NO', event)" class="px-2 py-1 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600 text-xs">No</button>
-                                </form>
+                            <div th:each="security : ${market.securities}" class="probability-bar-container">
+                                <!-- Probability Bar -->
+                                <div class="w-full rounded-md probability-bar">
+                                    <div th:style="'width: ' + ${security.probability} + '%; background-color: ' + ${security.color} + ';'"
+                                         class="probability-bar-inner">
+                                        <span class="bar-text" th:text="${#numbers.formatDecimal(security.probability, 0, 0)} + '%'"></span>
+                                        <span class="bar-title" th:text="${security.name}"></span>
+                                    </div>
+                                    <!-- Button Group -->
+                                    <div class="button-group">
+                                        <form class="predictionForm flex space-x-2">
+                                            <input type="hidden" class="securityId" name="id" th:value="${security.id}">
+                                            <input type="hidden" class="securityName" name="name" th:value="${security.name}">
+                                            <input type="hidden" class="marketId" name="marketId" th:value="${market.id}">
+                                            <!-- Yes Button -->
+                                            <button type="button"
+                                                    onclick="openModal('YES', event)"
+                                                    class="px-2 py-1 bg-green-500 text-white font-semibold rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600 text-xs">
+                                                Yes
+                                            </button>
+                                            <!-- No Button -->
+                                            <button type="button"
+                                                    onclick="openModal('NO', event)"
+                                                    class="px-2 py-1 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600 text-xs">
+                                                No
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -70,37 +88,115 @@
         </div>
     </div>
 
-    <!-- Comments Section -->
-    <div class="mt-6">
-        <h2 class="font-semibold text-lg text-gray-800">Comments</h2>
+    <div class="comments-section mt-6 bg-white shadow-sm rounded-lg p-6">
+        <h2 class="text-lg font-semibold text-gray-800 mb-4">Comments</h2>
 
-        <!-- Display existing comments -->
-        <div id="comments" class="space-y-4 mt-4">
-            <div th:each="comment : ${comments}" class="bg-white shadow rounded-lg p-4">
-                <div class="flex items-center mb-2">
-                    <div class="flex-shrink-0 h-8 w-8">
-                        <img class="h-8 w-8 rounded-full" src="/img/avatardefault_92824.png" alt="Avatar">
-                    </div>
-                    <div class="ml-3">
-                        <p class="text-sm font-medium text-gray-900" th:text="${comment.author.username}">Author</p>
-                        <p class="text-xs text-gray-500" >Date</p>
-                    </div>
-                </div>
-                <div class="mt-2 text-sm text-gray-700" th:text="${comment.content}">Comment content</div>
+        <div th:each="comment : ${comments}" class="comment mb-6">
+            <div class="comment-header flex justify-between items-center">
+                <div class="comment-author font-medium text-gray-700" th:text="${comment.author.username}">Author</div>
+                <div class="comment-date text-sm text-gray-500" th:text="${#temporals.format(comment.createdAt, 'MMM dd, yyyy')}">Date</div>
+            </div>
+            <div class="comment-content text-gray-700 mt-2" th:text="${comment.content}">Comment content</div>
+            <button class="reply-button mt-2 text-sm text-blue-500 hover:underline" th:onclick="'toggleReplyForm(' + ${comment.id} + ')'">Reply</button>
+
+            <!-- Reply Form -->
+            <div th:id="'reply-form-' + ${comment.id}" class="reply-form hidden mt-4 ml-8">
+                <form th:action="@{/comment/create}" method="post" class="space-y-2">
+                    <input type="hidden" name="marketId" th:value="${marketId}">
+                    <input type="hidden" name="parentId" th:value="${comment.id}">
+                    <textarea name="content" class="w-full border border-gray-300 rounded-md p-2" placeholder="Write your reply..."></textarea>
+                    <button type="submit" class="bg-blue-500 text-white font-semibold rounded-md px-4 py-2 hover:bg-blue-600">Submit</button>
+                </form>
+            </div>
+
+            <!-- Nested Replies -->
+            <div th:if="${comment.replies}" class="nested-replies mt-4 ml-8 border-l-2 border-gray-200 pl-4">
+                <div th:replace="~{fragments/replyList :: replyList(replies=${comment.replies})}"></div>
             </div>
         </div>
 
-        <!-- Comment Form -->
-        <form id="commentForm" th:action="@{/comment/create}" th:object="${commentForm}" method="post" class="mt-4">
-            <input type="hidden" class="marketId" name="marketId" th:value="${market.id}">
-            <div class="mb-4">
-                <textarea id="content" name="content" rows="4" class="w-full px-3 py-2 text-sm text-gray-700 border rounded-lg focus:outline-none" placeholder="Write your comment..."></textarea>
-            </div>
-            <div class="flex justify-end">
-                <button type="submit" class="px-4 py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Submit</button>
-            </div>
-        </form>
+        <!-- New Comment Form -->
+        <div class="new-comment-form mt-6">
+            <form th:action="@{/comment/create}" method="post" class="space-y-2">
+                <input type="hidden" name="marketId" th:value="${marketId}">
+                <textarea name="content" class="w-full border border-gray-300 rounded-md p-2" placeholder="Write your comment..."></textarea>
+                <button type="submit" class="bg-blue-500 text-white font-semibold rounded-md px-4 py-2 hover:bg-blue-600">Submit</button>
+            </form>
+        </div>
     </div>
+
+
+    <style>
+    .comments-section .comment {
+        border-bottom: 1px solid #e5e7eb;
+        padding-bottom: 1rem;
+    }
+
+    .comments-section .reply {
+        border-bottom: none;
+    }
+
+    .comments-section .reply-form.hidden {
+        display: none;
+    }
+
+    .comments-section .nested-replies {
+        margin-top: 1rem;
+        margin-left: 1rem;
+        border-left: 2px solid #e5e7eb;
+        padding-left: 1rem;
+    }
+
+    .comments-section .reply .nested-replies {
+        margin-left: 2rem;
+        padding-left: 2rem;
+    }
+</style>
+
+    <script>
+    function toggleReplyForm(commentId) {
+        const replyForm = document.getElementById('reply-form-' + commentId);
+        if (replyForm) {
+            replyForm.classList.toggle('hidden');
+        }
+    }
+</script>
+
+
+
+
+
+    <!--    &lt;!&ndash; Comments Section &ndash;&gt;-->
+<!--    <div class="mt-6">-->
+<!--        <h2 class="font-semibold text-lg text-gray-800">Comments</h2>-->
+
+<!--        &lt;!&ndash; Display existing comments &ndash;&gt;-->
+<!--        <div id="comments" class="space-y-4 mt-4">-->
+<!--            <div th:each="comment : ${comments}" class="bg-white shadow rounded-lg p-4">-->
+<!--                <div class="flex items-center mb-2">-->
+<!--                    <div class="flex-shrink-0 h-8 w-8">-->
+<!--                        <img class="h-8 w-8 rounded-full" src="/img/avatardefault_92824.png" alt="Avatar">-->
+<!--                    </div>-->
+<!--                    <div class="ml-3">-->
+<!--                        <p class="text-sm font-medium text-gray-900" th:text="${comment.author.username}">Author</p>-->
+<!--                        <p class="text-xs text-gray-500" >Date</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="mt-2 text-sm text-gray-700" th:text="${comment.content}">Comment content</div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Comment Form &ndash;&gt;-->
+<!--        <form id="commentForm" th:action="@{/comment/create}" th:object="${commentForm}" method="post" class="mt-4">-->
+<!--            <input type="hidden" class="marketId" name="marketId" th:value="${market.id}">-->
+<!--            <div class="mb-4">-->
+<!--                <textarea id="content" name="content" rows="4" class="w-full px-3 py-2 text-sm text-gray-700 border rounded-lg focus:outline-none" placeholder="Write your comment..."></textarea>-->
+<!--            </div>-->
+<!--            <div class="flex justify-end">-->
+<!--                <button type="submit" class="px-4 py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Submit</button>-->
+<!--            </div>-->
+<!--        </form>-->
+<!--    </div>-->
 
     <div th:insert="~{fragments/predict-modal :: predictModalFragment}"></div>
 </div>

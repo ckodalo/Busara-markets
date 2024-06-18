@@ -8,6 +8,8 @@ public class CommentForm {
 
     private Long marketId;
     private String content;
+    private Long parentId;
+    private String createdAt;
 
 
 }

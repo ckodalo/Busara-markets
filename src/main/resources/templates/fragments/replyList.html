@@ -1,0 +1,26 @@
+<!-- fragments/replyList.html -->
+<div th:fragment="replyList(replies)">
+    <div th:each="reply : ${replies}" class="reply mb-4">
+        <div class="comment-header flex justify-between items-center">
+            <div class="comment-author font-medium text-gray-700" th:text="${reply.author.username}">Author</div>
+            <div class="comment-date text-sm text-gray-500" th:text="${#temporals.format(reply.createdAt, 'MMM dd, yyyy')}">Date</div>
+        </div>
+        <div class="comment-content text-gray-700 mt-2" th:text="${reply.content}">Reply content</div>
+        <button class="reply-button mt-2 text-sm text-blue-500 hover:underline" th:onclick="'toggleReplyForm(' + ${reply.id} + ')'">Reply</button>
+
+        <!-- Nested Reply Form -->
+        <div th:id="'reply-form-' + ${reply.id}" class="reply-form hidden mt-4 ml-8">
+            <form th:action="@{/comment/create}" method="post" class="space-y-2">
+                <input type="hidden" name="marketId" th:value="${marketId}">
+                <input type="hidden" name="parentId" th:value="${reply.id}">
+                <textarea name="content" class="w-full border border-gray-300 rounded-md p-2" placeholder="Write your reply..."></textarea>
+                <button type="submit" class="bg-blue-500 text-white font-semibold rounded-md px-4 py-2 hover:bg-blue-600">Submit</button>
+            </form>
+        </div>
+
+        <!-- Further Nested Replies -->
+        <div th:if="${reply.replies}" class="nested-replies mt-4 ml-8 border-l-2 border-gray-200 pl-4">
+            <div th:replace="~{fragments/replyList :: replyList(replies=${reply.replies})}"></div>
+        </div>
+    </div>
+</div>
