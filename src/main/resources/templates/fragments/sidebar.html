@@ -1,215 +1,71 @@
-<!--
-// v0 by Vercel.
-// https://v0.dev/t/o2Dah6zGpv8
--->
+<div th:fragment="sidebar" id="sidebar" class="fixed w-40 h-full">
 
-<!--
-// v0 by Vercel.
-// https://v0.dev/t/LDe7qKkLQ2I
--->
-
-<div th:fragment="sidebar" class="flex-col h-full bg-gray-100 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800">
-<!--    <div class="flex items-center h-16 px-6 border-b border-gray-200 dark:border-gray-800">-->
-<!--        <a class="flex items-center gap-2 font-semibold text-gray-900 dark:text-gray-50" href="#">-->
-<!--            <svg-->
-<!--                    xmlns="http://www.w3.org/2000/svg"-->
-<!--                    width="24"-->
-<!--                    height="24"-->
-<!--                    viewBox="0 0 24 24"-->
-<!--                    fill="none"-->
-<!--                    stroke="currentColor"-->
-<!--                    stroke-width="2"-->
-<!--                    stroke-linecap="round"-->
-<!--                    stroke-linejoin="round"-->
-<!--                    class="h-6 w-6"-->
-<!--            >-->
-<!--                <line x1="12" x2="12" y1="20" y2="10"></line>-->
-<!--                <line x1="18" x2="18" y1="20" y2="4"></line>-->
-<!--                <line x1="6" x2="6" y1="20" y2="16"></line>-->
-<!--            </svg>-->
-<!--            <span>Dashboard</span>-->
-<!--        </a>-->
-<!--    </div>-->
-    <nav class="flex-1 py-4">
-        <ul class="space-y-1">
-            <li>
                 <a
-                        class="flex items-center gap-3 px-6 py-2 text-gray-600 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50"
+                        class="px-6 py-2 text-gray-600 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50"
                         href="#"
                 >
-                    <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="h-5 w-5"
-                    >
-                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                    </svg>
                     <span>Home</span>
                 </a>
-            </li>
-            <li>
+
                 <a
-                        class="flex items-center gap-3 px-6 py-2 text-gray-600 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50"
+                        class="px-6 py-2 text-gray-600 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50"
                         href="#"
                 >
-                    <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="h-5 w-5"
-                    >
-                        <line x1="12" x2="12" y1="20" y2="10"></line>
-                        <line x1="18" x2="18" y1="20" y2="4"></line>
-                        <line x1="6" x2="6" y1="20" y2="16"></line>
-                    </svg>
-                    <span>Markets</span>
-                </a>
-            </li>
-            <li>
-                <div class="px-6 py-2 text-gray-600 dark:text-gray-400">Categories</div>
-            </li>
-            <li>
-                <a
-                        class="flex items-center gap-3 px-6 py-2 text-gray-600 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50"
-                        href="#"
-                >
-                    <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="h-5 w-5"
-                    >
-                        <path d="M10.827 16.379a6.082 6.082 0 0 1-8.618-7.002l5.412 1.45a6.082 6.082 0 0 1 7.002-8.618l-1.45 5.412a6.082 6.082 0 0 1 8.618 7.002l-5.412-1.45a6.082 6.082 0 0 1-7.002 8.618l1.45-5.412Z"></path>
-                        <path d="M12 12v.01"></path>
-                    </svg>
                     <span>Sports</span>
                 </a>
-            </li>
-            <li>
                 <a
-                        class="flex items-center gap-3 px-6 py-2 text-gray-600 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50"
+                        class="px-6 py-2 text-gray-600 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50"
                         href="#"
                 >
-                    <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="h-5 w-5"
-                    >
-                        <path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                        <rect width="20" height="14" x="2" y="6" rx="2"></rect>
-                    </svg>
                     <span>Politics</span>
                 </a>
-            </li>
-            <li>
                 <a
-                        class="flex items-center gap-3 px-6 py-2 text-gray-600 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50"
+                        class="px-6 py-2 text-gray-600 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50"
                         href="#"
                 >
-                    <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="h-5 w-5"
-                    >
-                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                    </svg>
                     <span>Entertainment</span>
                 </a>
-            </li>
-            <li>
                 <a
-                        class="flex items-center gap-3 px-6 py-2 text-gray-600 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50"
+                        class="px-6 py-2 text-gray-600 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50"
                         href="#"
                 >
-                    <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="h-5 w-5"
-                    >
-                        <rect width="16" height="16" x="4" y="4" rx="2"></rect>
-                        <rect width="6" height="6" x="9" y="9" rx="1"></rect>
-                        <path d="M15 2v2"></path>
-                        <path d="M15 20v2"></path>
-                        <path d="M2 15h2"></path>
-                        <path d="M2 9h2"></path>
-                        <path d="M20 15h2"></path>
-                        <path d="M20 9h2"></path>
-                        <path d="M9 2v2"></path>
-                        <path d="M9 20v2"></path>
-                    </svg>
                     <span>Technology</span>
                 </a>
-            </li>
-        </ul>
-    </nav>
-<!--    <div class="border-t border-gray-200 dark:border-gray-800 p-4">-->
-<!--        <button-->
-<!--                class="inline-flex items-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-full justify-start gap-3"-->
-<!--                type="button"-->
-<!--                id="radix-:r4:"-->
-<!--                aria-haspopup="menu"-->
-<!--                aria-expanded="false"-->
-<!--                data-state="closed"-->
-<!--        >-->
-<!--      <span class="relative flex shrink-0 overflow-hidden rounded-full h-8 w-8">-->
-<!--        <span class="flex h-full w-full items-center justify-center rounded-full bg-muted">JP</span>-->
-<!--      </span>-->
-<!--            <span>John Doe</span>-->
-<!--            <svg-->
-<!--                    xmlns="http://www.w3.org/2000/svg"-->
-<!--                    width="24"-->
-<!--                    height="24"-->
-<!--                    viewBox="0 0 24 24"-->
-<!--                    fill="none"-->
-<!--                    stroke="currentColor"-->
-<!--                    stroke-width="2"-->
-<!--                    stroke-linecap="round"-->
-<!--                    stroke-linejoin="round"-->
-<!--                    class="h-4 w-4 text-gray-500 dark:text-gray-400"-->
-<!--            >-->
-<!--                <path d="m6 9 6 6 6-6"></path>-->
-<!--            </svg>-->
-<!--        </button>-->
-<!--    </div>-->
+                <a
+                        class="px-6 py-2 text-gray-600 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50"
+                        href="#"
+                >
+                    <span>Gossip</span>
+                </a>
+                <a
+                        class="px-6 py-2 text-gray-600 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50"
+                        href="#"
+                >
+                    Weather
+                </a>
+
+    <div class="flex justify-center mt-6">
+        <a th:href="@{/markets/create}" class="inline-flex items-center bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Add Market</a>
+    </div>
+
+
+
+
+</div>
+
+<!-- Mobile dock for small screens -->
+<div id="mobile-dock" class="fixed bottom-0 left-0 right-0 bg-gray-800 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-2">
+    <div class="justify-around">
+        <a href="#" class="dock-item">
+            <span>Home</span>
+        </a>
+        <a href="#" class="dock-item">
+            <span>Profile</span>
+        </a>
+        <a href="#" id="toggleSidebarBtn" class="dock-item">
+            <!-- hamburger svg menu -->
+            <span>Hamburgwr</span>
+            <!--            <svg ...></svg>-->
+        </a>
+    </div>
 </div>
