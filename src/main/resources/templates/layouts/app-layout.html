@@ -10,9 +10,11 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" th:href="@{/css/styles.build.tailwind.css}">
     <style>
+
     .probability-bar-container {
     margin-bottom: 1rem; /* Adds a gap between bars */
     }
+
     .probability-bar {
     height: 2rem;
     display: flex;
@@ -22,6 +24,7 @@
     overflow: hidden;
     background-color: #e5e7eb; /* Tailwind's gray-200 */
     }
+
     .probability-bar-inner {
     display: flex;
     align-items: center;
@@ -31,15 +34,18 @@
     top: 0;
     left: 0;
     }
+
     .bar-text {
     font-weight: bold;
     color: black;
     margin-left: 0.5rem;
     }
+
     .bar-title {
     font-weight: normal;
     margin-left: 0.5rem; /* Add space after the probability */
     }
+
     .button-group {
     position: absolute;
     right: 0.5rem;
@@ -47,31 +53,65 @@
     space-x-2;
     }
 
-        /* Default styles for sidebar */
-    @media (max-width: 1024px) {
-        #sidebar {
-            display: none; /* Hide sidebar by default for smaller screens */
-        }
-    }
+    /* default sidebar styles */
 
-    /* Styles for mobile dock */
-    @media (max-width: 1024px) {
-        #mobile-dock {
-            display: block; /* Show mobile dock for smaller screens */
-        }
-    }
-
-    /* Optional: Style for dock items */
-    .dock-item {
-        padding: 8px;
-        color: #333; /* Adjust as per your design */
-    }
+    #collapsible-panel {
+      height: 100%; /* Specify a height */
+      width: 0;
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Stay on top */
+      bottom: 0;
+      right: 0;
+      overflow-x: hidden; /* Disable horizontal scroll */
+      padding-top: 60px; /* Place content 60px from the top */
+      transition: 0.5s; /* 0.5 second transition effect to slide in the sidepanel */
+}
 
     #sidebar a {
-  display: block;
-  padding: 16px;
-  text-decoration: none;
+      display: block;
+      padding: 16px;
+      text-decoration: none;
+    }
+
+     #collapsible-panel a {
+      display: block;
+      padding: 16px;
+      text-decoration: none;
+    }
+
+  #collapsible-panel .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
 }
+
+    #mobile-dock {
+
+      display:none
+    }
+
+
+    @media (max-width: 1024px) {
+        #sidebar {
+            display: none;
+        }
+
+        #mobile-dock {
+            display: block;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        #footer {
+           display: none;
+        }
+    }
+
+
+
 
     </style>
 
@@ -87,17 +127,22 @@
 
 <body class="bg-gray-100">
 
-<div th:insert="~{fragments/navigation :: navigation}"></div>
+<div th:replace="~{fragments/navigation :: navigation}"></div>
 
-<div th:insert="~{fragments/sidebar :: sidebar}"></div>
+<div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
 <!--<div class="flex flex-col min-h-screen bg-gray-100">-->
 
-            <main>
-                <div th:replace="~{${content}}"></div>
+            <main id="main">
+                <div th:insert="~{${content}}"></div>
             </main>
 
-    <div th:insert="~{fragments/footer :: footer}"></div>
 
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+    <div th:replace="~{fragments/mobile-dock :: mobile-dock}"></div>
+
+    <div th:replace="~{fragments/collapsible-panel :: collapsible-panel}"></div>
 </body>
 </html>

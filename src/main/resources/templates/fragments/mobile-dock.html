@@ -1,0 +1,19 @@
+<div th:fragment="mobile-dock" id="mobile-dock" class="bottom-0 left-0 right-0 bg-gray-800 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 text-xs text-white uppercase tracking-widest py-2">
+  <div class="flex justify-around items-center">
+    <a th:href="@{/markets}" class="dock-item">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 11V21a1 1 0 0 0 1 1h5v-6h4v6h5a1 1 0 0 0 1-1V11m-9-9L2 6l2 2h3v-4H7L5 7zm10 0v4h3l2-2-2-2h-3z" />
+      </svg>
+    </a>
+    <button class="dock-item">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M10 2a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2h-6v6a1 1 0 1 1-2 0v-6H3a1 1 0 1 1 0-2h6V3a1 1 0 0 1 1-1z" clip-rule="evenodd" />
+      </svg>
+    </button>
+    <button id="toggleSidebarBtn" th:onclick="openPanel()" class="dock-item">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M3 5a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1zm0 6a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1zm0 6a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1z" clip-rule="evenodd" />
+      </svg>
+    </button>
+  </div>
+</div>
