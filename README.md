@@ -1,7 +1,7 @@
-#nungunungu
+# nungunungu
 A predictions market targeting Kenyan community
 
-##technologies 
-* > java 8
+## technologies 
+* java 8
 * thymeleaf
 * mysql
