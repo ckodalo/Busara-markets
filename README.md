@@ -1,7 +1,7 @@
-# nungunungu
+# Busara
 A predictions market targeting Kenyan community
 
-## technologies 
+## Technologies 
 * java 8
 * thymeleaf
 * mysql
