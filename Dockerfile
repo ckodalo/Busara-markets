@@ -3,7 +3,7 @@ FROM debian:bullseye
 # Install OpenJDK and Node.js
 RUN apt-get update && \
     apt-get install -y openjdk-17-jdk nodejs npm && \
-    npm install -g tailwindcss
+    npm install
 
 # Set working directory
 WORKDIR /app
