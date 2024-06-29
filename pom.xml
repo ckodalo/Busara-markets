@@ -172,6 +172,12 @@
 					src/main/resources
 				</directory>
 			</resource>
+			<resource>
+				<directory>${basedir}</directory>
+				<includes>
+					<include>package*.json</include>
+				</includes>
+			</resource>
 		</resources>
 	</build>
 
