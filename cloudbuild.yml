@@ -1,13 +1,14 @@
 steps:
-  - name: 'node'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        apt-get update && apt-get install -y nodejs npm
+#  - name: 'node'
+#    entrypoint: 'bash'
+#    args:
+#      - '-c'
+#      - |
+#        apt-get update && apt-get install -y nodejs npm
   - name: 'maven'
     entrypoint: 'mvn'
     args: ['clean', 'install', '-DskipTests']
+    env:
   #https://cloud.google.com/build/docs/cloud-builders
   # Build the container image
   - name: 'gcr.io/cloud-builders/docker'
