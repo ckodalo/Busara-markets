@@ -21,3 +21,4 @@ COPY target/predictions-0.0.1-SNAPSHOT.jar app/app.jar
 
 # entry point command to run the application
 ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "app/app.jar"]
+EXPOSE 8080
