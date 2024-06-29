@@ -81,10 +81,10 @@
 
 	<build>
 		<plugins>
-<!--			<plugin>-->
-<!--				<groupId>org.springframework.boot</groupId>-->
-<!--				<artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--			</plugin>-->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
 <!--			<plugin>-->
 <!--				<groupId>org.codehaus.mojo</groupId>-->
 <!--				<artifactId>exec-maven-plugin</artifactId>-->
@@ -134,6 +134,24 @@
 						</goals>
 						<!-- optional: default phase is "generate-resources" -->
 						<phase>generate-resources</phase>
+					</execution>
+					<execution>
+						<id>npm run dev</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+
+						<!-- optional: default phase is "generate-resources" -->
+						<phase>generate-resources</phase>
+
+						<configuration>
+							<!-- optional: The default argument is actually
+                            "install", so unless you need to run some other npm command,
+                            you can remove this whole <configuration> section.
+                            -->
+							<arguments>run dev</arguments>
+<!--							<arguments>dev</arguments>-->
+						</configuration>
 					</execution>
 				</executions>
 				<configuration>
