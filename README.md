@@ -1,7 +1,8 @@
-# Busara
-A predictions market targeting Kenyan community
+# Busara Markets
+This is a lite prediction market
 
 ## Technologies 
-* java 8
+* java 17
 * thymeleaf
 * mysql
+* cloudrun
