@@ -38,11 +38,11 @@ public class HikariCPConfig {
         // https://github.com/GoogleCloudPlatform/cloud-sql-jdbc-socket-factory#creating-the-jdbc-url
 
         // Configure which instance and what database user to connect with.
-        config.setJdbcUrl(String.format("jdbc:postgresql:///%s", DB_NAME));
+        config.setJdbcUrl(String.format("jdbc:mysql:///%s", DB_NAME));
         config.setUsername(DB_USER); // e.g. "root", _postgres"
         config.setPassword(DB_PASS); // e.g. "my-password"
 
-        config.addDataSourceProperty("socketFactory", "com.google.cloud.sql.postgres.SocketFactory");
+        config.addDataSourceProperty("socketFactory", "com.google.cloud.sql.mysql.SocketFactory");
         config.addDataSourceProperty("cloudSqlInstance", INSTANCE_CONNECTION_NAME);
 
         // Unix sockets are not natively supported in Java, so it is necessary to use the Cloud SQL
