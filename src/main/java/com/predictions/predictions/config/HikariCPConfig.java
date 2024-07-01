@@ -51,9 +51,9 @@ public class HikariCPConfig {
         // Note: For Java users, the Cloud SQL Java Connector can provide authenticated connections
         // which is usually preferable to using the Cloud SQL Proxy with Unix sockets.
         // See https://github.com/GoogleCloudPlatform/cloud-sql-jdbc-socket-factory for details.
-//        if (INSTANCE_UNIX_SOCKET != null) {
-//            config.addDataSourceProperty("unixSocketPath", INSTANCE_UNIX_SOCKET);
-//        }
+        if (INSTANCE_UNIX_SOCKET != null) {
+            config.addDataSourceProperty("unixSocketPath", INSTANCE_UNIX_SOCKET);
+        }
 
         return new HikariDataSource(config);
     }
