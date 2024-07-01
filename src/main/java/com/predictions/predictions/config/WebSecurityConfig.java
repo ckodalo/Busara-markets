@@ -27,11 +27,13 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/", "/home", "/markets", "/predict", "/user/signup", "/css/**", "/js/**").permitAll()
                         .anyRequest().authenticated()
+
                 )
                 .formLogin((form) -> form
                         .loginPage("/user/login")
 //                        .defaultSuccessUrl("/markets", true)
                         .permitAll()
+
 
                 )
                 .logout((logout) -> logout
@@ -45,6 +47,9 @@ public class WebSecurityConfig {
                 .sessionManagement((sessionManagement) -> sessionManagement
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
 
+                )
+                .requiresChannel((requiresChannel) -> requiresChannel
+                        .anyRequest().requiresSecure()
                 );
 //                .csrf(AbstractHttpConfigurer::disable
 //                );
