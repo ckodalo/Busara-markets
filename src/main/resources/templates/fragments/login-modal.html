@@ -1,21 +1,4 @@
 <!-- fragments/loginModal.html -->
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Not Laravel</title>
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.build.tailwind.css}">
-    <!-- Scripts -->
-
-    <script th:src="@{/js/authModals.js}"></script>
-
-</head>
-<body class="font-sans antialiased">
 <div th:fragment="loginModalFragment" id="loginModal" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
     <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
 <!--<div th:fragment="loginModalFragment">-->
@@ -51,6 +34,3 @@
  </div>
 
 </div>
-
- </body>
-</html>

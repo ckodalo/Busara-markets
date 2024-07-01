@@ -47,10 +47,10 @@ public class WebSecurityConfig {
                 .sessionManagement((sessionManagement) -> sessionManagement
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
 
-                )
-                .requiresChannel((requiresChannel) -> requiresChannel
-                        .anyRequest().requiresSecure()
                 );
+//                .requiresChannel((requiresChannel) -> requiresChannel
+//                        .requestMatchers("/user/login").requiresSecure()
+//                );
 //                .csrf(AbstractHttpConfigurer::disable
 //                );
 
