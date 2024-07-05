@@ -48,7 +48,7 @@ public class Market {
 
         this.securities = securities;
 
-         this.liquidity = liquidity;
+        this.liquidity = liquidity;
 
         System.out.println("Setting liquidity parameter = " + this.liquidity);
 

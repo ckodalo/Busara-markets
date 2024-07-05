@@ -6,6 +6,7 @@ import com.predictions.predictions.models.Market;
 import com.predictions.predictions.models.Prediction;
 import com.predictions.predictions.models.Security;
 
+import com.predictions.predictions.models.dto.MarketDTO;
 import com.predictions.predictions.models.dto.PredictionDetails;
 import com.predictions.predictions.services.*;
 import com.predictions.predictions.services.UserService;
@@ -65,8 +66,11 @@ public class MarketController {
 
        }
 
+        List<MarketDTO> marketDTOS = marketService.marketDTOConverter(marketsList);
+
+
        model.addAttribute("content", "markets");
-       model.addAttribute("marketsList", marketsList);
+       model.addAttribute("marketsList", marketDTOS);
 
        return "layouts/app-layout";
     }
