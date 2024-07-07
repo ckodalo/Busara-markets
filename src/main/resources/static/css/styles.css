@@ -1,0 +1,196 @@
+.probability-bar-container {
+    margin-bottom: 1rem; /* Adds a gap between bars */
+}
+
+.probability-bar {
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    border-radius: 0.375rem;
+    position: relative;
+    overflow: hidden;
+    background-color: #e5e7eb; /* Tailwind's gray-200 */
+}
+
+.probability-bar-inner {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    border-radius: inherit;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.bar-text {
+    font-weight: bold;
+    color: black;
+    margin-left: 0.5rem;
+}
+
+.bar-title {
+    font-weight: normal;
+    margin-left: 0.5rem;
+}
+
+.button-group {
+    position: absolute;
+    right: 0.5rem;
+    display: flex;
+    gap: 0.5rem; /* Adds space between buttons */
+}
+
+/* default sidebar styles */
+#collapsible-panel {
+    height: 90%;
+    width: 0;
+    position: fixed;
+    z-index: 1; /* Stay on top */
+    bottom: 0;
+    right: 0;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px;
+    transition: transition 0.3s; /* 0.5 second transition effect to slide in the sidepanel */
+}
+
+#sidebar a {
+    display: block;
+    padding: 16px;
+    text-decoration: none;
+}
+
+#collapsible-panel a {
+    display: block;
+    padding: 16px;
+    text-decoration: none;
+}
+
+#collapsible-panel .closebtn {
+
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+#mobile-dock {
+    display: none;
+}
+
+#mobile-header {
+    display: none;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: calc(100% - 10rem);
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    text-align: center;
+    z-index: 1000; /* Ensure header is above other content */
+}
+
+/* Styling for footer */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    text-align: center;
+    z-index: 1000; /* Ensure footer is above other content */
+}
+
+main {
+    padding-top: 180px;
+    padding-bottom: 40px; /* Adjust this value based on footer height
+    background-color: #f9f9f9;
+    min-height: 100vh; /* Ensure main content takes at least the viewport height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 20px;
+}
+
+@media (max-width: 1024px) {
+    #sidebar {
+        display: none;
+    }
+
+    #header {
+        display: none !important;
+    }
+
+    footer {
+        display: none !important;
+    }
+
+  #mobile-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000; /* Ensure mobile header is above other content */
+}
+
+#mobile-header a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #fff;
+}
+
+#mobile-header form {
+    display: flex;
+    align-items: center;
+}
+
+#mobile-header input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-right: 8px;
+    border: 1px solid #666;
+    border-radius: 4px 0 0 4px;
+    background-color: #fff;
+    color: #333;
+    outline: none;
+}
+
+#mobile-header button[type="submit"] {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#mobile-header button[type="submit"]:hover,
+#mobile-header button[type="submit"]:focus {
+    background-color: #0056b3;
+}
+
+    #mobile-dock {
+        display: block;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: #333;
+        color: #fff;
+        padding: 10px 20px;
+        text-align: center;
+        z-index: 1000; /* Ensure mobile dock is above other content */
+    }
+}
