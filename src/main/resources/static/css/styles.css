@@ -122,6 +122,11 @@ main {
 }
 
 @media (max-width: 1024px) {
+
+     .custom-grid-cols-1 {
+                        grid-template-columns: repeat(1, minmax(0, 1fr));
+                    }
+
     #sidebar {
         display: none;
     }
@@ -198,4 +203,3 @@ main {
         text-align: center;
         z-index: 1000; /* Ensure mobile dock is above other content */
     }
-}
