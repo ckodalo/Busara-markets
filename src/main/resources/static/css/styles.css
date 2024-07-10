@@ -131,6 +131,8 @@ main {
         display: none;
     }
 
+    #add-market-button { display:none; }
+
     #header {
         display: none !important;
     }
