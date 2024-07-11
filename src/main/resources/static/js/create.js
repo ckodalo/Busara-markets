@@ -1,19 +1,40 @@
-document.addEventListener('DOMContentLoaded', function() {
-    var marketTypeElement = document.getElementById('marketType');
-    if (marketTypeElement) {
-        marketTypeElement.addEventListener('change', function() {
+
+//document.addEventListener("DOMContentLoaded", function() {
+//
+//   var marketTypeElement = document.getElementById('marketType');
+//
+//   if (marketTypeElement) {
+//
+//      marketTypeElement.addEventListener('change', handleOnChange);
+//   }
+//
+//   else {
+//    console.error('Element with id "marketType" not found.');
+//   }
+//
+//})
+
+function handleMarketTypeChange () {
+
+   console.log("handleonchange has been reached");
+
             try {
-                var marketType = this.value;
+                var marketType = document.getElementById("marketType").value;
                 var yesNoSection = document.getElementById('yesNoSection');
                 var multipleChoicePollSection = document.getElementById('multipleChoicePollSection');
+
+                var securityInputs = document.getElementById('security-inputs');
+
+                console.log(marketType);
 
                 if (marketType === 'YesNo') {
                     yesNoSection.classList.remove('hidden');
                     multipleChoicePollSection.classList.add('hidden');
 
-                    // Remove all security inputs
-                    while (multipleChoicePollSection.firstChild) {
-                        multipleChoicePollSection.removeChild(multipleChoicePollSection.firstChild);
+                    // Remove additional security inputs
+                    var children = securityInputs.children;
+                    while (children > 2) {
+                        securityInputs.removeChild(children[2]);
                     }
 
                     // Append hidden inputs for 'yes' and 'no'
@@ -33,16 +54,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else if (marketType === 'MultipleChoice' || marketType === 'Poll') {
                     yesNoSection.classList.add('hidden');
                     multipleChoicePollSection.classList.remove('hidden');
-                    addSecurityInput();
+                    //addSecurityInput();
                 }
             } catch (error) {
                 console.error('An error occurred:', error);
             }
-        });
+        }
 
-        function addSecurityInput() {
+       function addSecurityInput() {
+
+             console.log("addSecurityInput accessesd");
+
             try {
-                var securitiesDiv = document.getElementById('multipleChoicePollSection');
+                var securitiesDiv = document.getElementById('security-inputs');
                 var securityCount = securitiesDiv.getElementsByClassName('security-input').length + 1;
 
                 var securityInput = document.createElement('div');
@@ -72,11 +96,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 securityInput.appendChild(input);
                 securityInput.appendChild(removeButton);
                 securitiesDiv.appendChild(securityInput);
+
             } catch (error) {
                 console.error('An error occurred in addSecurityInput:', error);
             }
         }
-    } else {
-        console.error('Element with id "marketType" not found.');
-    }
-});
