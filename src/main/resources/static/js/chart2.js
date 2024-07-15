@@ -22,15 +22,20 @@ document.addEventListener("DOMContentLoaded", function() {
                 .domain(d3.extent(chartData2, d => d.lastPredictionDate))
                 .range([margin.left, width - margin.right]);
 
-            // Declare the y (vertical position) scale.
-            const y = d3.scaleLinear()
-                .domain([0, 100])
-                .range([height - margin.bottom, margin.top]);
+              // Declare the y (vertical position) scale.
+              const y = d3.scaleLinear([0, d3.max(chartData2, d => d.probability)], [height - margin.bottom, margin.top]);
+
 
             // Create the line generator.
-            const line = d3.line()
-                .x(d => x(d.lastPredictionDate))
-                .y(d => y(d.probability));
+//            const line = d3.line()
+//                .x(d => x(d.lastPredictionDate))
+//                .y(d => y(d.probability));
+
+              //Declare the area generator.
+                           const area = d3.area()
+                               .x(d => x(d.lastPredictionDate))
+                               .y0(y(0))
+                               .y1(d => y(d.probability));
 
             // Create the SVG container.
             const svg = d3.create("svg")
@@ -38,6 +43,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 .attr("height", height)
                 .attr("viewBox", [0, 0, width, height])
                 .attr("style", "max-width: 100%; height: auto; height: intrinsic;");
+
+
+                 // Append a path for the area (under the axes).
+                  svg.append("path")
+                      .attr("fill", "forestgreen")
+                      .attr("d", area(chartData2));
 
             // Append x-axis with dynamic time formatting.
             svg.append("g")
@@ -62,24 +73,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // Color scale using d3.schemeTableau10.
             const color = d3.scaleOrdinal(d3.schemeTableau10);
-
-            // Append the lines to the SVG.
-                svg.append("path")
-                    .datum(chartData2)
-                    .attr("fill", "none")
-                    .attr("stroke", color)
-                    .attr("stroke-width", 1.5)
-                    .attr("d", line);
-
-                // Append circles at each data point for the category.
-                svg.append("g")
-                    .selectAll("circle")
-                    .data(chartData2)
-                    .join("circle")
-                    .attr("cx", d => x(d.lastPredictionDate))
-                    .attr("cy", d => y(d.probability))
-                    .attr("r", 3)
-                    .attr("fill", "black");
 
             const chart2 = document.getElementById('chart2');
 

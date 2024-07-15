@@ -4,8 +4,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const chartDataElement = document.getElementById('chartData');
     if (chartDataElement) {
         const chartData = JSON.parse(chartDataElement.textContent);
-        console.log("chartData:", chartData);
-
         if (chartData.length > 0) {
             chartData.forEach(d => {
                 d.lastPredictionDate = new Date(d.lastPredictionDate);
@@ -23,9 +21,14 @@ document.addEventListener("DOMContentLoaded", function() {
                 .range([margin.left, width - margin.right]);
 
             // Declare the y (vertical position) scale.
-            const y = d3.scaleLinear()
-                .domain([0, 100])
-                .range([height - margin.bottom, margin.top]);
+            const y = d3.scaleLinear([0, d3.max(chartData, d => d.probability)], [height - margin.bottom, margin.top]);
+
+
+               //Declare the area generator.
+//               const area = d3.area()
+//                   .x(d => x(d.lastPredictionDate))
+//                   .y0(y(0))
+//                   .y1(d => y(d.probability));
 
             // Group data by securityName.
             const dataGroupedBySecurity = d3.group(chartData, d => d.securityName);
@@ -40,7 +43,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 .attr("width", width)
                 .attr("height", height)
                 .attr("viewBox", [0, 0, width, height])
-                .attr("style", "max-width: 100%; height: auto; height: intrinsic;");
+
+
+              // Append a path for the area (under the axes).
+//                            svg.append("path")
+//                                .attr("fill", "forestgreen")
+//                                .attr("d", line(chartData));
 
             // Append x-axis with dynamic time formatting.
             svg.append("g")
@@ -63,30 +71,24 @@ document.addEventListener("DOMContentLoaded", function() {
                     .attr("text-anchor", "start")
                     .text("↑ Probability (%)"));
 
-            // Color scale using d3.schemeTableau10.
+
+
+
+//            // Color scale using d3.schemeTableau10.
             const color = d3.scaleOrdinal(d3.schemeTableau10);
-
-            // Append the lines to the SVG.
-            dataGroupedBySecurity.forEach((values, key) => {
-                const lineColor = color(key);
-
+//
+//            // Append the lines to the SVG.
+//            dataGroupedBySecurity.forEach((values, key) => {
+//                const lineColor = color(key);
+//
                 svg.append("path")
-                    .datum(values)
                     .attr("fill", "none")
-                    .attr("stroke", lineColor)
+                    .attr("stroke", "steelblue")
                     .attr("stroke-width", 1.5)
-                    .attr("d", line);
+                    .attr("d", line(chartData));
+                    //.attr("d", area);
 
-                // Append circles at each data point for the category.
-                svg.append("g")
-                    .selectAll("circle")
-                    .data(values)
-                    .join("circle")
-                    .attr("cx", d => x(d.lastPredictionDate))
-                    .attr("cy", d => y(d.probability))
-                    .attr("r", 3)
-                    .attr("fill", lineColor);
-            });
+//            });
 
             const chart = document.getElementById('chart');
 
