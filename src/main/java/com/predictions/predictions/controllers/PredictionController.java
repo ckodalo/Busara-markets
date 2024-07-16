@@ -39,19 +39,10 @@ public class PredictionController {
         this.userService = userService;
     }
 
-    //this is same as buying share,, what about selling share
+    //TODO this is same as buying share,, what about selling share
 
     @PostMapping("/predict")
     public String predict(@AuthenticationPrincipal User userDetails, @ModelAttribute Security security, @RequestParam Long marketId, @RequestParam int nShares, @RequestParam String action ) {
-
-        System.out.println("the action received is " + action);
-
-        if (action.equals("NO")) {
-
-           nShares = -nShares;
-        }
-
-        System.out.println("the adjusted nShares is " + nShares);
 
         Long securityId = security.getId();
 

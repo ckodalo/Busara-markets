@@ -23,11 +23,13 @@ public class Market {
 
     private String closingDate;
 
+    //TODO: add resolution date - this is different from closingDate
+
     private String marketType;
 
     private double liquidity = 100.0;
 
-    //need to determine what i did here
+    //TODO WTH!
     @OneToMany(mappedBy = "market", fetch = FetchType.EAGER, cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Security> securities;
 

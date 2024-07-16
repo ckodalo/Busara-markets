@@ -65,15 +65,12 @@ public class MarketService {
 
                 MarketDTO marketDTO = appendMarketWithChartData(market);
 
-//                System.out.println("marketDTO is : " + marketDTO);
-
                 marketDTOS.add(marketDTO);
             }
 
             else {
 
                 MarketDTO marketDTO = new MarketDTO(market);
-//                System.out.println("marketDTO is : " + marketDTO);
                 marketDTOS.add(marketDTO);
             }
         }
@@ -121,7 +118,6 @@ public class MarketService {
     }
 
     // method to set new probability and price
-
     public void doThings (Long marketId, Long securityId, int nShares) {
 
         Market targetMarket = findMarketById(marketId);
