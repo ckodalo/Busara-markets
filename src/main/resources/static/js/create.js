@@ -22,6 +22,8 @@ function handleMarketTypeChange () {
                 var marketType = document.getElementById("marketType").value;
                 var yesNoSection = document.getElementById('yesNoSection');
                 var multipleChoicePollSection = document.getElementById('multipleChoicePollSection');
+                var securityInputField1 = document.getElementById('security1');
+                var securityInputField2 = document.getElementById('security2');
 
                 var securityInputs = document.getElementById('security-inputs');
 
@@ -29,7 +31,9 @@ function handleMarketTypeChange () {
 
                 if (marketType === 'YesNo') {
                     yesNoSection.classList.remove('hidden');
-                    multipleChoicePollSection.classList.add('hidden');
+
+                    multipleChoicePollSection.remove(securityInputs)
+//                    multipleChoicePollSection.classList.add('hidden');
 
                     // Remove additional security inputs
                     var children = securityInputs.children;
@@ -54,7 +58,11 @@ function handleMarketTypeChange () {
                 } else if (marketType === 'MultipleChoice' || marketType === 'Poll') {
                     yesNoSection.classList.add('hidden');
                     multipleChoicePollSection.classList.remove('hidden');
-                    //addSecurityInput();
+
+                    if (!multipleChoicePollSection.contains(securityInputs)) {
+                         multipleChoicePollSection.append(securityInputs);
+                    }
+
                 }
             } catch (error) {
                 console.error('An error occurred:', error);
